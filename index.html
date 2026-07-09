@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CondoUp - Calculadora de Propostas</title>
+<style>
+  :root {
+    --azul-escuro: #0F172A;
+    --azul-medio: #1E293B;
+    --azul-claro: #334155;
+    --verde: #22C55E;
+    --verde-hover: #16A34A;
+    --branco: #FFFFFF;
+    --cinza-claro: #F1F5F9;
+    --cinza: #94A3B8;
+    --sombra: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+
+  body {
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--azul-escuro);
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--branco);
+    padding: 25px 40px;
+    border-radius: 20px;
+    box-shadow: var(--sombra);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    animation: slideDown 0.6s ease;
+  }
+
+  .logo {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--azul-escuro);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-icon {
+    background: linear-gradient(135deg, var(--verde), #16A34A);
+    color: white;
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+
+  .user-badge {
+    background: var(--cinza-claro);
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-weight: 600;
+    color: var(--azul-escuro);
+    font-size: 14px;
+  }
+
+  /* GRID PRINCIPAL */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 25px;
+  }
+
+  .card {
+    background: var(--branco);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: var(--sombra);
+    margin-bottom: 25px;
+    animation: fadeIn 0.6s ease;
+  }
+
+  .card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--azul-escuro);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--cinza-claro);
+  }
+
+  /* FORMULÁRIOS */
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--azul-escuro);
+    font-size: 14px;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--cinza-claro);
+    border-radius: 12px;
+    font-size: 15px;
+    transition: all 0.3s;
+    background: var(--cinza-claro);
+  }
+
+  .form-group input:focus {
+    outline: none;
+    border-color: var(--verde);
+    background: var(--branco);
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
+  }
+
+  /* RESULTADO */
+  .result-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  .result-item {
+    background: var(--cinza-claro);
+    padding: 18px;
+    border-radius: 14px;
+    transition: all 0.3s;
+  }
+
+  .result-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  }
+
+  .result-item .label {
+    font-size: 13px;
+    color: var(--cinza);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .result-item .value {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--azul-escuro);
+  }
+
+  .result-item.destaque {
+    background: linear-gradient(135deg, var(--verde), #16A34A);
+    grid-column: span 2;
+  }
+
+  .result-item.destaque .label,
+  .result-item.destaque .value {
+    color: var(--branco);
+  }
+
+  .result-item.destaque .value {
+    font-size: 32px;
+  }
+
+  /* INCLUSO */
+  .incluso-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .incluso-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background: var(--cinza-claro);
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  .check {
+    background: var(--verde);
+    color: white;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  /* AÇÕES */
+  .actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+  }
+
+  .btn {
+    padding: 14px 20px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+
+  .btn-primary { background: var(--verde); color: white; }
+  .btn-primary:hover { background: var(--verde-hover); }
+  .btn-blue { background: var(--azul-escuro); color: white; }
+  .btn-whats { background: #25D366; color: white; }
+  .btn-gray { background: var(--cinza-claro); color: var(--azul-escuro); }
+  .btn-orange { background: #F59E0B; color: white; }
+  .btn-orange:hover { background: #D97706; }
+
+  /* PAINEL LATERAL */
+  .sidebar {
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+  }
+
+  .sidebar-card {
+    background: linear-gradient(135deg, var(--azul-escuro), var(--azul-medio));
+    color: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: var(--sombra);
+  }
+
+  .sidebar-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .sidebar-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .sidebar-item:last-child { border-bottom: none; }
+
+  .sidebar-item .s-label {
+    font-size: 13px;
+    opacity: 0.8;
+  }
+
+  .sidebar-item .s-value {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .sidebar-destaque {
+    background: rgba(34, 197, 94, 0.15);
+    border: 2px solid var(--verde);
+    border-radius: 14px;
+    padding: 18px;
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  .sidebar-destaque .big-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--verde);
+    margin-top: 5px;
+  }
+
+  .sidebar-destaque .small-label {
+    font-size: 12px;
+    opacity: 0.8;
+  }
+
+  /* MODAL PROPOSTA */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    animation: fadeIn 0.3s;
+  }
+
+  .modal.active { display: flex; }
+
+  .modal-content {
+    background: white;
+    border-radius: 20px;
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 40px;
+    position: relative;
+  }
+
+  .close-modal {
+    position: absolute;
+    top: 15px; right: 20px;
+    background: var(--cinza-claro);
+    border: none;
+    width: 35px; height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .proposta-header {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 3px solid var(--verde);
+    margin-bottom: 25px;
+  }
+
+  .proposta-header h1 {
+    color: var(--azul-escuro);
+    font-size: 28px;
+    margin-top: 10px;
+  }
+
+  .proposta-section {
+    margin-bottom: 25px;
+  }
+
+  .proposta-section h3 {
+    color: var(--azul-escuro);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--cinza-claro);
+  }
+
+  .proposta-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .proposta-table td {
+    padding: 10px;
+    border-bottom: 1px solid var(--cinza-claro);
+  }
+
+  .proposta-table td:first-child {
+    font-weight: 600;
+    width: 40%;
+  }
+
+  .proposta-total {
+    background: linear-gradient(135deg, var(--verde), #16A34A);
+    color: white;
+    padding: 20px;
+    border-radius: 14px;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .proposta-total .valor {
+    font-size: 36px;
+    font-weight: 800;
+    margin-top: 5px;
+  }
+
+  /* ANIMAÇÕES */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* RESPONSIVO */
+  @media (max-width: 968px) {
+    .main-grid { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .result-grid { grid-template-columns: 1fr; }
+    .result-item.destaque { grid-column: span 1; }
+    .incluso-list { grid-template-columns: 1fr; }
+    .header { flex-direction: column; gap: 15px; }
+  }
+
+  /* IMPRESSÃO */
+  @media print {
+    body { background: white; padding: 0; }
+    .header, .card:not(.proposta-print), .sidebar, .modal-actions, .close-modal { display: none !important; }
+    .modal { position: static; background: white; display: block !important; padding: 0; }
+    .modal-content { max-height: none; box-shadow: none; padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">
+      <div class="logo-icon">🏢</div>
+      CONDOUP
+    </div>
+    <div class="user-badge">👤 Comercial</div>
+  </div>
+
+  <!-- GRID PRINCIPAL -->
+  <div class="main-grid">
+    <div class="left-column">
+      
+      <!-- DADOS DO CLIENTE -->
+      <div class="card">
+        <div class="card-title">📋 Dados do Cliente</div>
+        <div class="form-group">
+          <label>🏢 Condomínio</label>
+          <input type="text" id="condominio" placeholder="Ex: Residencial Parque das Flores">
+        </div>
+        <div class="form-group">
+          <label>👤 Nome do Síndico</label>
+          <input type="text" id="sindico" placeholder="Ex: João Silva">
+        </div>
+        <div class="form-group">
+          <label>📍 Cidade</label>
+          <input type="text" id="cidade" placeholder="Ex: São Paulo - SP">
+        </div>
+      </div>
+
+      <!-- DADOS DO CONDOMÍNIO -->
+      <div class="card">
+        <div class="card-title">🏠 Dados do Condomínio</div>
+        <div class="form-group">
+          <label>Quantidade de apartamentos</label>
+          <input type="number" id="apartamentos" value="171" min="1">
+        </div>
+        <div class="form-group">
+          <label>📉 Desconto (%)</label>
+          <input type="number" id="desconto" value="5" min="0" max="50">
+        </div>
+      </div>
+
+      <!-- RESULTADO -->
+      <div class="card">
+        <div class="card-title">📊 Resultado</div>
+        <div class="result-grid">
+          <div class="result-item">
+            <div class="label">💰 Valor Original</div>
+            <div class="value" id="valorOriginal">R$ 3.252,00</div>
+          </div>
+          <div class="result-item">
+            <div class="label">💵 Valor por apartamento</div>
+            <div class="value" id="valorApto">R$ 19,02</div>
+          </div>
+          <div class="result-item">
+            <div class="label">📉 Desconto</div>
+            <div class="value" id="descontoValor">5%</div>
+          </div>
+          <div class="result-item">
+            <div class="label">💸 Economia</div>
+            <div class="value" id="economia">R$ 162,60</div>
+          </div>
+          <div class="result-item destaque">
+            <div class="label">✅ VALOR FINAL</div>
+            <div class="value" id="valorFinal">R$ 3.089,40</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INCLUSO -->
+      <div class="card">
+        <div class="card-title">📦 O que está incluso</div>
+        <div class="incluso-list">
+          <div class="incluso-item"><span class="check">✓</span> Implantação</div>
+          <div class="incluso-item"><span class="check">✓</span> Treinamento</div>
+          <div class="incluso-item"><span class="check">✓</span> Atualizações</div>
+          <div class="incluso-item"><span class="check">✓</span> Suporte</div>
+          <div class="incluso-item"><span class="check">✓</span> Sistema Web + PWA</div>
+          <div class="incluso-item"><span class="check">✓</span> App Mobile</div>
+        </div>
+      </div>
+
+      <!-- AÇÕES -->
+      <div class="card">
+        <div class="card-title">⚡ Ações</div>
+        <div class="actions">
+          <button class="btn btn-primary" onclick="calcular()">🟢 Calcular</button>
+          <button class="btn btn-orange" onclick="fecharNegociacao()">🎯 Fechar Negociação</button>
+          <button class="btn btn-blue" onclick="gerarPDF()">🔵 Gerar PDF</button>
+          <button class="btn btn-whats" onclick="compartilharWhats()">📱 WhatsApp</button>
+          <button class="btn btn-gray" onclick="imprimir()">🖨️ Imprimir</button>
+          <button class="btn btn-gray" onclick="limpar()">🧹 Limpar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-title">📈 RESUMO EM TEMPO REAL</div>
+        
+        <div class="sidebar-item">
+          <span class="s-label">🏠 Apartamentos</span>
+          <span class="s-value" id="sAptos">171</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="s-label">💰 Mensalidade</span>
+          <span class="s-value" id="sMensal">R$ 3.252,00</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="s-label">📉 Desconto</span>
+          <span class="s-value" id="sDesc">5%</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="s-label">💸 Economia</span>
+          <span class="s-value" id="sEconomia">R$ 162,60</span>
+        </div>
+        
+        <div class="sidebar-destaque">
+          <div class="small-label">✅ VALOR FINAL</div>
+          <div class="big-value" id="sFinal">R$ 3.089,40</div>
+        </div>
+        
+        <div class="sidebar-item" style="margin-top: 15px;">
+          <span class="s-label">💵 Custo por apto</span>
+          <span class="s-value" id="sCustoApto">R$ 18,07</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PROPOSTA -->
+<div class="modal" id="modalProposta">
+  <div class="modal-content" id="conteudoProposta">
+    <button class="close-modal" onclick="fecharModal()">✕</button>
+    <div id="propostaConteudo"></div>
+    <div class="modal-actions" style="margin-top: 25px; display: flex; gap: 10px; flex-wrap: wrap;">
+      <button class="btn btn-blue" onclick="gerarPDF()">🔵 Gerar PDF</button>
+      <button class="btn btn-whats" onclick="compartilharWhats()">📱 Enviar WhatsApp</button>
+      <button class="btn btn-gray" onclick="fecharModal()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ============================================
+  // FÓRMULA DE PRECIFICAÇÃO
+  // Valor = R$ 1.200 (base) + R$ 12 × qtd apartamentos
+  // ============================================
+  const VALOR_BASE = 1200;
+  const VALOR_POR_APTO = 12;
+
+  function calcularValor(apartamentos) {
+    return VALOR_BASE + (apartamentos * VALOR_POR_APTO);
+  }
+
+  function formatarMoeda(valor) {
+    return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  }
+
+  function calcular() {
+    const apts = parseInt(document.getElementById('apartamentos').value) || 0;
+    const desc = parseFloat(document.getElementById('desconto').value) || 0;
+
+    if (apts <= 0) {
+      alert('⚠️ Informe uma quantidade válida de apartamentos!');
+      return;
+    }
+
+    const valorOriginal = calcularValor(apts);
+    const valorPorApto = valorOriginal / apts;
+    const economia = (valorOriginal * desc) / 100;
+    const valorFinal = valorOriginal - economia;
+    const custoFinalApto = valorFinal / apts;
+
+    // Atualiza resultado principal
+    document.getElementById('valorOriginal').textContent = formatarMoeda(valorOriginal);
+    document.getElementById('valorApto').textContent = formatarMoeda(valorPorApto);
+    document.getElementById('descontoValor').textContent = desc + '%';
+    document.getElementById('economia').textContent = formatarMoeda(economia);
+    document.getElementById('valorFinal').textContent = formatarMoeda(valorFinal);
+
+    // Atualiza sidebar
+    document.getElementById('sAptos').textContent = apts;
+    document.getElementById('sMensal').textContent = formatarMoeda(valorOriginal);
+    document.getElementById('sDesc').textContent = desc + '%';
+    document.getElementById('sEconomia').textContent = formatarMoeda(economia);
+    document.getElementById('sFinal').textContent = formatarMoeda(valorFinal);
+    document.getElementById('sCustoApto').textContent = formatarMoeda(custoFinalApto);
+  }
+
+  function fecharNegociacao() {
+    const condominio = document.getElementById('condominio').value || 'Condomínio';
+    const sindico = document.getElementById('sindico').value || 'Síndico';
+    const cidade = document.getElementById('cidade').value || '-';
+    const apts = document.getElementById('apartamentos').value;
+    const desc = document.getElementById('desconto').value;
+    
+    const valorOriginal = calcularValor(parseInt(apts));
+    const valorFinal = valorOriginal - (valorOriginal * desc / 100);
+    const custoApto = valorFinal / apts;
+    const dataAtual = new Date().toLocaleDateString('pt-BR');
+
+    const html = `
+      <div class="proposta-header">
+        <div style="font-size: 40px;">🏢</div>
+        <h1>CONDOUP</h1>
+        <p style="color: #64748B; margin-top: 5px;">Proposta Comercial - ${dataAtual}</p>
+      </div>
+
+      <div class="proposta-section">
+        <h3>📋 Dados do Cliente</h3>
+        <table class="proposta-table">
+          <tr><td>Condomínio:</td><td>${condominio}</td></tr>
+          <tr><td>Síndico:</td><td>${sindico}</td></tr>
+          <tr><td>Cidade:</td><td>${cidade}</td></tr>
+          <tr><td>Apartamentos:</td><td>${apts}</td></tr>
+        </table>
+      </div>
+
+      <div class="proposta-section">
+        <h3>💼 Condições Comerciais</h3>
+        <table class="proposta-table">
+          <tr><td>Valor Original:</td><td>${formatarMoeda(valorOriginal)}</td></tr>
+          <tr><td>Desconto Aplicado:</td><td>${desc}%</td></tr>
+          <tr><td>Economia:</td><td>${formatarMoeda(valorOriginal * desc / 100)}</td></tr>
+          <tr><td>Valor por Apartamento:</td><td>${formatarMoeda(custoApto)}</td></tr>
+        </table>
+      </div>
+
+      <div class="proposta-section">
+        <h3>📦 O que está incluso</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <div>✔ Implantação completa</div>
+          <div>✔ Treinamento da equipe</div>
+          <div>✔ Atualizações gratuitas</div>
+          <div>✔ Suporte técnico</div>
+          <div>✔ Sistema Web + PWA</div>
+          <div>✔ Aplicativo Mobile</div>
+        </div>
+      </div>
+
+      <div class="proposta-total">
+        <div style="font-size: 14px; opacity: 0.9;">✅ VALOR FINAL MENSAL</div>
+        <div class="valor">${formatarMoeda(valorFinal)}</div>
+        <div style="font-size: 13px; margin-top: 5px; opacity: 0.9;">
+          Equivalente a ${formatarMoeda(custoApto)} por apartamento
+        </div>
+      </div>
+
+      <div style="margin-top: 30px; padding: 20px; background: #F1F5F9; border-radius: 12px; text-align: center;">
+        <p style="font-size: 13px; color: #64748B;">
+          Proposta válida por 15 dias • CondoUp © ${new Date().getFullYear()}<br>
+          <strong>Obrigado pela confiança!</strong> 🚀
+        </p>
+      </div>
+    `;
+
+    document.getElementById('propostaConteudo').innerHTML = html;
+    document.getElementById('modalProposta').classList.add('active');
+  }
+
+  function fecharModal() {
+    document.getElementById('modalProposta').classList.remove('active');
+  }
+
+  function gerarPDF() {
+    // Abre proposta se não estiver aberta
+    if (!document.getElementById('modalProposta').classList.contains('active')) {
+      fecharNegociacao();
+    }
+    setTimeout(() => window.print(), 300);
+  }
+
+  function imprimir() {
+    gerarPDF();
+  }
+
+  function compartilharWhats() {
+    const condominio = document.getElementById('condominio').value || 'Condomínio';
+    const apts = document.getElementById('apartamentos').value;
+    const desc = document.getElementById('desconto').value;
+    const valorOriginal = calcularValor(parseInt(apts));
+    const valorFinal = valorOriginal - (valorOriginal * desc / 100);
+    const custoApto = valorFinal / apts;
+
+    const texto = `🏢 *CONDOUP - Proposta Comercial*%0A%0A` +
+      `*Condomínio:* ${condominio}%0A` +
+      `*Apartamentos:* ${apts}%0A` +
+      `*Desconto:* ${desc}%25%0A%0A` +
+      `💰 Valor Original: ${formatarMoeda(valorOriginal)}%0A` +
+      `💸 Economia: ${formatarMoeda(valorOriginal * desc / 100)}%0A` +
+      `✅ *Valor Final:* ${formatarMoeda(valorFinal)}%0A` +
+      `💵 Custo por apto: ${formatarMoeda(custoApto)}%0A%0A` +
+      `📦 Incluso: Implantação, Treinamento, Suporte, Sistema Web + PWA%0A%0A` +
+      `_Proposta válida por 15 dias_ 🚀`;
+
+    window.open(`https://wa.me/?text=${texto}`, '_blank');
+  }
+
+  function limpar() {
+    if (confirm('🧹 Deseja realmente limpar todos os campos?')) {
+      document.getElementById('condominio').value = '';
+      document.getElementById('sindico').value = '';
+      document.getElementById('cidade').value = '';
+      document.getElementById('apartamentos').value = '';
+      document.getElementById('desconto').value = '';
+      calcular();
+    }
+  }
+
+  // Atualização em tempo real
+  document.getElementById('apartamentos').addEventListener('input', calcular);
+  document.getElementById('desconto').addEventListener('input', calcular);
+
+  // Cálculo inicial
+  calcular();
+</script>
+
+</body>
+</html>
