@@ -399,23 +399,11 @@
     .header { flex-direction: column; gap: 15px; }
   }
 
-  /* Estilos para impressão */
   @media print {
-    body * {
-      visibility: hidden;
-    }
-    #conteudoProposta, #conteudoProposta * {
-      visibility: visible;
-    }
-    #conteudoProposta {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-    }
-    .modal-actions, .close-modal {
-      display: none !important;
-    }
+    body * { visibility: hidden; }
+    #conteudoProposta, #conteudoProposta * { visibility: visible; }
+    #conteudoProposta { position: absolute; left: 0; top: 0; width: 100%; }
+    .modal-actions, .close-modal { display: none !important; }
   }
 </style>
 </head>
@@ -468,24 +456,15 @@
           Dados do Cliente
         </div>
         <div class="form-group">
-          <label>
-            <i class="fa-solid fa-building"></i>
-            Condomínio
-          </label>
+          <label><i class="fa-solid fa-building"></i>Condomínio</label>
           <input type="text" id="condominio" placeholder="Ex: Residencial Parque das Flores">
         </div>
         <div class="form-group">
-          <label>
-            <i class="fa-solid fa-user-shield"></i>
-            Nome do Síndico
-          </label>
+          <label><i class="fa-solid fa-user-shield"></i>Nome do Síndico</label>
           <input type="text" id="sindico" placeholder="Ex: João Silva">
         </div>
         <div class="form-group">
-          <label>
-            <i class="fa-solid fa-location-dot"></i>
-            Cidade
-          </label>
+          <label><i class="fa-solid fa-location-dot"></i>Cidade</label>
           <input type="text" id="cidade" placeholder="Ex: São Paulo - SP">
         </div>
       </div>
@@ -496,24 +475,15 @@
           Dados do Condomínio
         </div>
         <div class="form-group">
-          <label>
-            <i class="fa-solid fa-door-closed"></i>
-            Quantidade de apartamentos
-          </label>
+          <label><i class="fa-solid fa-door-closed"></i>Quantidade de apartamentos</label>
           <input type="number" id="apartamentos" value="" min="1" placeholder="Digite a quantidade">
         </div>
         <div class="form-group">
-          <label>
-            <i class="fa-solid fa-coins"></i>
-            Valor por apartamento (R$)
-          </label>
+          <label><i class="fa-solid fa-coins"></i>Valor por apartamento (R$)</label>
           <input type="number" id="valorPorApto" value="" min="1" step="0.01" placeholder="Calculado automaticamente">
         </div>
         <div class="form-group">
-          <label>
-            <i class="fa-solid fa-percent"></i>
-            Desconto (%)
-          </label>
+          <label><i class="fa-solid fa-percent"></i>Desconto (%)</label>
           <input type="number" id="desconto" value="" min="0" max="100" placeholder="Ex: 10">
         </div>
       </div>
@@ -525,38 +495,23 @@
         </div>
         <div class="result-grid">
           <div class="result-item">
-            <div class="label">
-              <i class="fa-solid fa-money-bill-wave"></i>
-              Valor Original
-            </div>
+            <div class="label"><i class="fa-solid fa-money-bill-wave"></i>Valor Original</div>
             <div class="value" id="valorOriginal">R$ 0</div>
           </div>
           <div class="result-item">
-            <div class="label">
-              <i class="fa-solid fa-building"></i>
-              Valor por apartamento
-            </div>
+            <div class="label"><i class="fa-solid fa-building"></i>Valor por apartamento</div>
             <div class="value" id="valorAptoExibicao">R$ 0,00</div>
           </div>
           <div class="result-item">
-            <div class="label">
-              <i class="fa-solid fa-tag"></i>
-              Desconto
-            </div>
+            <div class="label"><i class="fa-solid fa-tag"></i>Desconto</div>
             <div class="value" id="descontoValor">0%</div>
           </div>
           <div class="result-item">
-            <div class="label">
-              <i class="fa-solid fa-piggy-bank"></i>
-              Economia
-            </div>
+            <div class="label"><i class="fa-solid fa-piggy-bank"></i>Economia</div>
             <div class="value" id="economia">R$ 0</div>
           </div>
           <div class="result-item destaque">
-            <div class="label">
-              <i class="fa-solid fa-check-circle"></i>
-              VALOR FINAL
-            </div>
+            <div class="label"><i class="fa-solid fa-check-circle"></i>VALOR FINAL</div>
             <div class="value" id="valorFinal">R$ 0</div>
           </div>
         </div>
@@ -568,30 +523,12 @@
           O que está incluso
         </div>
         <div class="incluso-list">
-          <div class="incluso-item">
-            <span class="check"><i class="fa-solid fa-check"></i></span>
-            Implantação
-          </div>
-          <div class="incluso-item">
-            <span class="check"><i class="fa-solid fa-check"></i></span>
-            Treinamento
-          </div>
-          <div class="incluso-item">
-            <span class="check"><i class="fa-solid fa-check"></i></span>
-            Atualizações
-          </div>
-          <div class="incluso-item">
-            <span class="check"><i class="fa-solid fa-check"></i></span>
-            Suporte
-          </div>
-          <div class="incluso-item">
-            <span class="check"><i class="fa-solid fa-check"></i></span>
-            Sistema Web + PWA
-          </div>
-          <div class="incluso-item">
-            <span class="check"><i class="fa-solid fa-check"></i></span>
-            App Mobile
-          </div>
+          <div class="incluso-item"><span class="check"><i class="fa-solid fa-check"></i></span>Implantação</div>
+          <div class="incluso-item"><span class="check"><i class="fa-solid fa-check"></i></span>Treinamento</div>
+          <div class="incluso-item"><span class="check"><i class="fa-solid fa-check"></i></span>Atualizações</div>
+          <div class="incluso-item"><span class="check"><i class="fa-solid fa-check"></i></span>Suporte</div>
+          <div class="incluso-item"><span class="check"><i class="fa-solid fa-check"></i></span>Sistema Web + PWA</div>
+          <div class="incluso-item"><span class="check"><i class="fa-solid fa-check"></i></span>App Mobile</div>
         </div>
       </div>
 
@@ -601,26 +538,11 @@
           Ações
         </div>
         <div class="actions">
-          <button class="btn btn-primary" onclick="calcular()">
-            <i class="fa-solid fa-calculator"></i>
-            Calcular
-          </button>
-          <button class="btn btn-orange" onclick="fecharNegociacao()">
-            <i class="fa-solid fa-bullseye"></i>
-            Fechar Negociação
-          </button>
-          <button class="btn btn-blue" onclick="gerarPDF()">
-            <i class="fa-solid fa-file-pdf"></i>
-            Gerar PDF
-          </button>
-          <button class="btn btn-whats" onclick="compartilharWhats()">
-            <i class="fa-brands fa-whatsapp"></i>
-            WhatsApp
-          </button>
-          <button class="btn btn-gray" onclick="limpar()">
-            <i class="fa-solid fa-eraser"></i>
-            Limpar
-          </button>
+          <button class="btn btn-primary" onclick="calcular()"><i class="fa-solid fa-calculator"></i>Calcular</button>
+          <button class="btn btn-orange" onclick="fecharNegociacao()"><i class="fa-solid fa-bullseye"></i>Fechar Negociação</button>
+          <button class="btn btn-blue" onclick="gerarPDF()"><i class="fa-solid fa-file-pdf"></i>Gerar PDF</button>
+          <button class="btn btn-whats" onclick="compartilharWhats()"><i class="fa-brands fa-whatsapp"></i>WhatsApp</button>
+          <button class="btn btn-gray" onclick="limpar()"><i class="fa-solid fa-eraser"></i>Limpar</button>
         </div>
       </div>
     </div>
@@ -632,45 +554,27 @@
           RESUMO EM TEMPO REAL
         </div>
         <div class="sidebar-item">
-          <span class="s-label">
-            <i class="fa-solid fa-building"></i>
-            Apartamentos
-          </span>
+          <span class="s-label"><i class="fa-solid fa-building"></i>Apartamentos</span>
           <span class="s-value" id="sAptos">-</span>
         </div>
         <div class="sidebar-item">
-          <span class="s-label">
-            <i class="fa-solid fa-money-bill"></i>
-            Mensalidade
-          </span>
+          <span class="s-label"><i class="fa-solid fa-money-bill"></i>Mensalidade</span>
           <span class="s-value" id="sMensal">R$ 0</span>
         </div>
         <div class="sidebar-item">
-          <span class="s-label">
-            <i class="fa-solid fa-percent"></i>
-            Desconto
-          </span>
+          <span class="s-label"><i class="fa-solid fa-percent"></i>Desconto</span>
           <span class="s-value" id="sDesc">0%</span>
         </div>
         <div class="sidebar-item">
-          <span class="s-label">
-            <i class="fa-solid fa-sack-dollar"></i>
-            Economia
-          </span>
+          <span class="s-label"><i class="fa-solid fa-sack-dollar"></i>Economia</span>
           <span class="s-value" id="sEconomia">R$ 0</span>
         </div>
         <div class="sidebar-destaque">
-          <div class="small-label">
-            <i class="fa-solid fa-check-double"></i>
-            VALOR FINAL
-          </div>
+          <div class="small-label"><i class="fa-solid fa-check-double"></i>VALOR FINAL</div>
           <div class="big-value" id="sFinal">R$ 0</div>
         </div>
         <div class="sidebar-item" style="margin-top: 15px;">
-          <span class="s-label">
-            <i class="fa-solid fa-coins"></i>
-            Custo por apto
-          </span>
+          <span class="s-label"><i class="fa-solid fa-coins"></i>Custo por apto</span>
           <span class="s-value" id="sCustoApto">R$ 0,00</span>
         </div>
       </div>
@@ -680,44 +584,34 @@
 
 <div class="modal" id="modalProposta">
   <div class="modal-content" id="conteudoProposta">
-    <button class="close-modal" onclick="fecharModal()">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
+    <button class="close-modal" onclick="fecharModal()"><i class="fa-solid fa-xmark"></i></button>
     <div id="propostaConteudo"></div>
     <div class="modal-actions" style="margin-top: 25px; display: flex; gap: 10px; flex-wrap: wrap;">
-      <button class="btn btn-blue" onclick="gerarPDF()">
-        <i class="fa-solid fa-file-pdf"></i>
-        Gerar PDF
-      </button>
-      <button class="btn btn-whats" onclick="compartilharWhats()">
-        <i class="fa-brands fa-whatsapp"></i>
-        Enviar WhatsApp
-      </button>
-      <button class="btn btn-gray" onclick="fecharModal()">
-        Fechar
-      </button>
+      <button class="btn btn-blue" onclick="gerarPDF()"><i class="fa-solid fa-file-pdf"></i>Gerar PDF</button>
+      <button class="btn btn-whats" onclick="compartilharWhats()"><i class="fa-brands fa-whatsapp"></i>Enviar WhatsApp</button>
+      <button class="btn btn-gray" onclick="fecharModal()">Fechar</button>
     </div>
   </div>
 </div>
 
 <script>
-  // NOVA TABELA DE PREÇOS PROGRESSIVA
+  // ✅ NOVA TABELA DE PREÇOS ATUALIZADA
   function getValorTotalPorFaixa(qtdAptos) {
     if (qtdAptos <= 40) return 1550;
-    if (qtdAptos <= 50) return 1700;
-    if (qtdAptos <= 60) return 1950;
-    if (qtdAptos <= 70) return 2100;
-    if (qtdAptos <= 80) return 2250;
-    if (qtdAptos <= 90) return 2350;
-    if (qtdAptos <= 100) return 2450;
-    if (qtdAptos <= 110) return 2600;
-    if (qtdAptos <= 120) return 2750;
-    if (qtdAptos <= 130) return 2900;
-    if (qtdAptos <= 140) return 3150;
-    if (qtdAptos <= 150) return 3200;
-    if (qtdAptos <= 160) return 3300;
-    if (qtdAptos <= 171) return 3450;
-    return 3450; // máximo
+    if (qtdAptos <= 50) return 1750;
+    if (qtdAptos <= 60) return 2000;
+    if (qtdAptos <= 70) return 2150;
+    if (qtdAptos <= 80) return 2300;
+    if (qtdAptos <= 90) return 2400;
+    if (qtdAptos <= 100) return 2500;
+    if (qtdAptos <= 110) return 2650;
+    if (qtdAptos <= 120) return 2800;
+    if (qtdAptos <= 130) return 2950;
+    if (qtdAptos <= 140) return 3200;
+    if (qtdAptos <= 150) return 3250;
+    if (qtdAptos <= 160) return 3350;
+    if (qtdAptos <= 171) return 3500;
+    return 3500;
   }
 
   function formatarMoeda(valor) {
@@ -742,7 +636,6 @@
       document.getElementById('descontoValor').textContent = '0%';
       document.getElementById('economia').textContent = 'R$ 0';
       document.getElementById('valorFinal').textContent = 'R$ 0';
-      
       document.getElementById('sAptos').textContent = '-';
       document.getElementById('sMensal').textContent = 'R$ 0';
       document.getElementById('sDesc').textContent = '0%';
@@ -873,7 +766,7 @@
       <div style="margin-top: 30px; padding: 20px; background: #F1F5F9; border-radius: 12px; text-align: center;">
         <p style="font-size: 13px; color: #64748B;">
           Proposta válida por 15 dias • CondoUp © ${new Date().getFullYear()}<br>
-          <strong>Obrigado pela confiança!</strong> <i class="fa-solid fa-rocket"></i>
+          <strong>Obrigado pela confiança!</strong>
         </p>
       </div>
     `;
@@ -893,17 +786,14 @@
       return;
     }
 
-    // Abre a proposta se não estiver aberta
     if (!document.getElementById('modalProposta').classList.contains('active')) {
       fecharNegociacao();
     }
     
-    // Aguarda a renderização completa
     setTimeout(() => {
       try {
         const element = document.getElementById('conteudoProposta');
         
-        // Verifica se html2pdf está disponível
         if (typeof html2pdf === 'undefined') {
           console.error('html2pdf não carregou. Usando window.print() como fallback.');
           window.print();
@@ -961,17 +851,17 @@
     const valorFinal = Math.ceil(valorOriginal - (valorOriginal * desc / 100));
     const custoApto = Math.ceil(valorFinal / parseInt(apts));
 
-    const texto = `🏢 *CONDOUP - Proposta Comercial*%0A%0A` +
+    const texto = ` *CONDOUP - Proposta Comercial*%0A%0A` +
       `*Condomínio:* ${condominio}%0A` +
       `*Apartamentos:* ${apts}%0A` +
       `*Valor por apto:* R$ ${parseFloat(valorPorApto || 0).toFixed(2).replace('.', ',')}%0A` +
       `*Desconto:* ${desc}%25%0A%0A` +
-      `💰 Valor Original: ${formatarMoeda(valorOriginal)}%0A` +
+      ` Valor Original: ${formatarMoeda(valorOriginal)}%0A` +
       `💸 Economia: ${formatarMoeda(Math.ceil(valorOriginal * desc / 100))}%0A` +
       `✅ *Valor Final:* ${formatarMoeda(valorFinal)}%0A` +
       `💵 Custo por apto: ${formatarMoeda(custoApto)}%0A%0A` +
       `📦 Incluso: Implantação, Treinamento, Suporte, Sistema Web + PWA%0A%0A` +
-      `_Proposta válida por 15 dias_ `;
+      `_Proposta válida por 15 dias_`;
 
     window.open(`https://wa.me/?text=${texto}`, '_blank');
   }
@@ -988,7 +878,6 @@
     }
   }
 
-  // Atualização em tempo real
   document.getElementById('apartamentos').addEventListener('input', function() {
     document.getElementById('valorPorApto').value = '';
     calcular();
