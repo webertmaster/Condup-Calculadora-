@@ -398,6 +398,25 @@
     .incluso-list { grid-template-columns: 1fr; }
     .header { flex-direction: column; gap: 15px; }
   }
+
+  /* Estilos para impressão */
+  @media print {
+    body * {
+      visibility: hidden;
+    }
+    #conteudoProposta, #conteudoProposta * {
+      visibility: visible;
+    }
+    #conteudoProposta {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+    .modal-actions, .close-modal {
+      display: none !important;
+    }
+  }
 </style>
 </head>
 <body>
@@ -684,12 +703,12 @@
 <script>
   // NOVA TABELA DE PREÇOS PROGRESSIVA
   function getValorTotalPorFaixa(qtdAptos) {
-    if (qtdAptos <= 40) return 1500;
+    if (qtdAptos <= 40) return 1550;
     if (qtdAptos <= 50) return 1700;
-    if (qtdAptos <= 60) return 1900;
-    if (qtdAptos <= 70) return 2000;
-    if (qtdAptos <= 80) return 2200;
-    if (qtdAptos <= 90) return 2300;
+    if (qtdAptos <= 60) return 1950;
+    if (qtdAptos <= 70) return 2100;
+    if (qtdAptos <= 80) return 2250;
+    if (qtdAptos <= 90) return 2350;
     if (qtdAptos <= 100) return 2450;
     if (qtdAptos <= 110) return 2600;
     if (qtdAptos <= 120) return 2750;
@@ -697,8 +716,8 @@
     if (qtdAptos <= 140) return 3150;
     if (qtdAptos <= 150) return 3200;
     if (qtdAptos <= 160) return 3300;
-    if (qtdAptos <= 171) return 3420;
-    return 3420; // máximo
+    if (qtdAptos <= 171) return 3450;
+    return 3450; // máximo
   }
 
   function formatarMoeda(valor) {
@@ -718,7 +737,6 @@
     const desc = parseFloat(document.getElementById('desconto').value) || 0;
 
     if (apts <= 0) {
-      // Limpa os resultados se não tiver apartamentos
       document.getElementById('valorOriginal').textContent = 'R$ 0';
       document.getElementById('valorAptoExibicao').textContent = 'R$ 0,00';
       document.getElementById('descontoValor').textContent = '0%';
@@ -734,7 +752,6 @@
       return;
     }
 
-    // Se o valor por apartamento não foi editado manualmente, calcula automaticamente
     if (valorPorApto === 0 || valorPorAptoInput === '') {
       const valorTotal = getValorTotalPorFaixa(apts);
       valorPorApto = valorTotal / apts;
@@ -870,7 +887,6 @@
   }
 
   function gerarPDF() {
-    // Verifica se tem dados
     const apts = document.getElementById('apartamentos').value;
     if (!apts || parseInt(apts) === 0) {
       alert('⚠️ Por favor, preencha a quantidade de apartamentos antes de gerar o PDF.');
@@ -882,39 +898,52 @@
       fecharNegociacao();
     }
     
-    // Aguarda a renderização do modal
+    // Aguarda a renderização completa
     setTimeout(() => {
-      const element = document.getElementById('conteudoProposta');
-      
-      // Configurações otimizadas para PDF
-      const opt = {
-        margin: [10, 10, 10, 10],
-        filename: `Proposta_CondoUp_${new Date().getTime()}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { 
-          scale: 2, 
-          useCORS: true,
-          logging: false,
-          letterRendering: true,
-          allowTaint: true
-        },
-        jsPDF: { 
-          unit: 'mm', 
-          format: 'a4', 
-          orientation: 'portrait',
-          compress: true
-        },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-      };
-      
-      // Gera e salva o PDF
-      html2pdf().set(opt).from(element).save().then(() => {
-        console.log('PDF gerado com sucesso!');
-      }).catch(err => {
-        console.error('Erro ao gerar PDF:', err);
-        alert('Erro ao gerar PDF. Tente novamente ou use a impressão do navegador (Ctrl+P).');
-      });
-    }, 800);
+      try {
+        const element = document.getElementById('conteudoProposta');
+        
+        // Verifica se html2pdf está disponível
+        if (typeof html2pdf === 'undefined') {
+          console.error('html2pdf não carregou. Usando window.print() como fallback.');
+          window.print();
+          return;
+        }
+        
+        const opt = {
+          margin: [10, 10, 10, 10],
+          filename: `Proposta_CondoUp_${new Date().getTime()}.pdf`,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { 
+            scale: 2, 
+            useCORS: true,
+            logging: false,
+            letterRendering: true,
+            allowTaint: true,
+            backgroundColor: '#ffffff'
+          },
+          jsPDF: { 
+            unit: 'mm', 
+            format: 'a4', 
+            orientation: 'portrait',
+            compress: true
+          },
+          pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+        };
+        
+        html2pdf().set(opt).from(element).save().then(() => {
+          console.log('PDF gerado com sucesso!');
+        }).catch(err => {
+          console.error('Erro ao gerar PDF:', err);
+          alert('Erro ao gerar PDF. Usando impressão do navegador...\n\nDica: Pressione Ctrl+P e escolha "Salvar como PDF"');
+          window.print();
+        });
+      } catch (error) {
+        console.error('Erro inesperado:', error);
+        alert('Erro ao gerar PDF. Use Ctrl+P para imprimir.');
+        window.print();
+      }
+    }, 1000);
   }
 
   function compartilharWhats() {
@@ -942,7 +971,7 @@
       `✅ *Valor Final:* ${formatarMoeda(valorFinal)}%0A` +
       `💵 Custo por apto: ${formatarMoeda(custoApto)}%0A%0A` +
       `📦 Incluso: Implantação, Treinamento, Suporte, Sistema Web + PWA%0A%0A` +
-      `_Proposta válida por 15 dias_ 🚀`;
+      `_Proposta válida por 15 dias_ `;
 
     window.open(`https://wa.me/?text=${texto}`, '_blank');
   }
@@ -961,15 +990,11 @@
 
   // Atualização em tempo real
   document.getElementById('apartamentos').addEventListener('input', function() {
-    // Limpa o valor por apartamento para recalcular automaticamente
     document.getElementById('valorPorApto').value = '';
     calcular();
   });
   document.getElementById('valorPorApto').addEventListener('input', calcular);
   document.getElementById('desconto').addEventListener('input', calcular);
-
-  // Não calcula automaticamente ao carregar - campos vazios
-  // calcular(); // REMOVIDO para não calcular ao abrir
 </script>
 
 </body>
