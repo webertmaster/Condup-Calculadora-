@@ -42,37 +42,13 @@
     animation: slideDown 0.6s ease;
   }
 
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-
-  .logo-svg {
-    width: 60px;
-    height: 60px;
-  }
-
-  .logo-text {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .logo-text .brand {
-    font-size: 28px;
-    font-weight: 800;
-    line-height: 1;
-  }
-
+  .logo { display: flex; align-items: center; gap: 15px; }
+  .logo-svg { width: 60px; height: 60px; }
+  .logo-text { display: flex; flex-direction: column; }
+  .logo-text .brand { font-size: 28px; font-weight: 800; line-height: 1; }
   .logo-text .brand .condo { color: var(--azul-escuro); }
   .logo-text .brand .up { color: var(--azul-claro); }
-
-  .logo-text .slogan {
-    font-size: 10px;
-    color: var(--cinza);
-    letter-spacing: 1px;
-    margin-top: 3px;
-  }
+  .logo-text .slogan { font-size: 10px; color: var(--cinza); letter-spacing: 1px; margin-top: 3px; }
 
   .user-badge {
     background: var(--cinza-claro);
@@ -86,11 +62,7 @@
     gap: 8px;
   }
 
-  .main-grid {
-    display: grid;
-    grid-template-columns: 1fr 380px;
-    gap: 25px;
-  }
+  .main-grid { display: grid; grid-template-columns: 1fr 380px; gap: 25px; }
 
   .card {
     background: var(--branco);
@@ -113,10 +85,7 @@
     border-bottom: 2px solid var(--cinza-claro);
   }
 
-  .card-title i {
-    color: var(--azul-claro);
-    font-size: 24px;
-  }
+  .card-title i { color: var(--azul-claro); font-size: 24px; }
 
   .form-group { margin-bottom: 18px; }
   .form-group label {
@@ -129,10 +98,7 @@
     align-items: center;
     gap: 8px;
   }
-  .form-group label i {
-    color: var(--azul-claro);
-    width: 20px;
-  }
+  .form-group label i { color: var(--azul-claro); width: 20px; }
   .form-group input {
     width: 100%;
     padding: 12px 16px;
@@ -149,11 +115,7 @@
     box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
   }
 
-  .result-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-  }
+  .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
   .result-item {
     background: var(--cinza-claro);
     padding: 18px;
@@ -173,14 +135,8 @@
     align-items: center;
     gap: 8px;
   }
-  .result-item .label i {
-    color: var(--azul-claro);
-  }
-  .result-item .value {
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--azul-escuro);
-  }
+  .result-item .label i { color: var(--azul-claro); }
+  .result-item .value { font-size: 22px; font-weight: 800; color: var(--azul-escuro); }
   .result-item.destaque {
     background: linear-gradient(135deg, var(--azul-escuro), var(--azul-claro));
     grid-column: span 2;
@@ -189,11 +145,7 @@
   .result-item.destaque .value { color: var(--branco); }
   .result-item.destaque .value { font-size: 32px; }
 
-  .incluso-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
+  .incluso-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .incluso-item {
     display: flex;
     align-items: center;
@@ -216,11 +168,7 @@
     font-size: 12px;
   }
 
-  .actions {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 12px;
-  }
+  .actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
   .btn {
     padding: 14px 20px;
     border: none;
@@ -234,10 +182,7 @@
     justify-content: center;
     gap: 10px;
   }
-  .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
   .btn-primary { background: var(--azul-claro); color: white; }
   .btn-primary:hover { background: #2563EB; }
   .btn-blue { background: var(--azul-escuro); color: white; }
@@ -254,14 +199,7 @@
     padding: 30px;
     box-shadow: var(--sombra);
   }
-  .sidebar-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+  .sidebar-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
   .sidebar-item {
     display: flex;
     justify-content: space-between;
@@ -270,13 +208,7 @@
     border-bottom: 1px solid rgba(255,255,255,0.1);
   }
   .sidebar-item:last-child { border-bottom: none; }
-  .sidebar-item .s-label { 
-    font-size: 13px; 
-    opacity: 0.8;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  .sidebar-item .s-label { font-size: 13px; opacity: 0.8; display: flex; align-items: center; gap: 8px; }
   .sidebar-item .s-value { font-size: 16px; font-weight: 700; }
   .sidebar-destaque {
     background: rgba(59, 130, 246, 0.15);
@@ -286,12 +218,7 @@
     margin-top: 15px;
     text-align: center;
   }
-  .sidebar-destaque .big-value {
-    font-size: 32px;
-    font-weight: 800;
-    color: var(--azul-claro);
-    margin-top: 5px;
-  }
+  .sidebar-destaque .big-value { font-size: 32px; font-weight: 800; color: var(--azul-claro); margin-top: 5px; }
   .sidebar-destaque .small-label { font-size: 12px; opacity: 0.8; }
 
   .modal {
@@ -329,26 +256,11 @@
     font-weight: bold;
     color: var(--azul-escuro);
   }
-  .close-modal:hover {
-    background: #E2E8F0;
-  }
+  .close-modal:hover { background: #E2E8F0; }
 
-  .proposta-header {
-    text-align: center;
-    padding-bottom: 20px;
-    border-bottom: 3px solid var(--azul-claro);
-    margin-bottom: 25px;
-  }
-  .proposta-header .logo-svg {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 10px;
-  }
-  .proposta-header h1 {
-    color: var(--azul-escuro);
-    font-size: 28px;
-    margin-top: 10px;
-  }
+  .proposta-header { text-align: center; padding-bottom: 20px; border-bottom: 3px solid var(--azul-claro); margin-bottom: 25px; }
+  .proposta-header .logo-svg { width: 80px; height: 80px; margin-bottom: 10px; }
+  .proposta-header h1 { color: var(--azul-escuro); font-size: 28px; margin-top: 10px; }
   .proposta-header h1 .condo { color: var(--azul-escuro); }
   .proposta-header h1 .up { color: var(--azul-claro); }
 
@@ -362,14 +274,9 @@
     align-items: center;
     gap: 10px;
   }
-  .proposta-section h3 i {
-    color: var(--azul-claro);
-  }
+  .proposta-section h3 i { color: var(--azul-claro); }
   .proposta-table { width: 100%; border-collapse: collapse; }
-  .proposta-table td {
-    padding: 10px;
-    border-bottom: 1px solid var(--cinza-claro);
-  }
+  .proposta-table td { padding: 10px; border-bottom: 1px solid var(--cinza-claro); }
   .proposta-table td:first-child { font-weight: 600; width: 40%; }
   .proposta-total {
     background: linear-gradient(135deg, var(--azul-escuro), var(--azul-claro));
@@ -381,14 +288,21 @@
   }
   .proposta-total .valor { font-size: 36px; font-weight: 800; margin-top: 5px; }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+  .implantacao-box {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    color: white;
+    padding: 18px;
+    border-radius: 14px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-  @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  .implantacao-box .imp-label { font-size: 13px; opacity: 0.9; }
+  .implantacao-box .imp-value { font-size: 24px; font-weight: 800; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 
   @media (max-width: 968px) {
     .main-grid { grid-template-columns: 1fr; }
@@ -441,20 +355,14 @@
         <div class="slogan">GESTÃO INTELIGENTE. CONDOMÍNIOS EM EVOLUÇÃO.</div>
       </div>
     </div>
-    <div class="user-badge">
-      <i class="fa-solid fa-user-tie"></i>
-      Comercial
-    </div>
+    <div class="user-badge"><i class="fa-solid fa-user-tie"></i> Comercial</div>
   </div>
 
   <div class="main-grid">
     <div class="left-column">
       
       <div class="card">
-        <div class="card-title">
-          <i class="fa-solid fa-address-book"></i>
-          Dados do Cliente
-        </div>
+        <div class="card-title"><i class="fa-solid fa-address-book"></i> Dados do Cliente</div>
         <div class="form-group">
           <label><i class="fa-solid fa-building"></i>Condomínio</label>
           <input type="text" id="condominio" placeholder="Ex: Residencial Parque das Flores">
@@ -470,10 +378,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title">
-          <i class="fa-solid fa-building-circle-check"></i>
-          Dados do Condomínio
-        </div>
+        <div class="card-title"><i class="fa-solid fa-building-circle-check"></i> Dados do Condomínio</div>
         <div class="form-group">
           <label><i class="fa-solid fa-door-closed"></i>Quantidade de apartamentos</label>
           <input type="number" id="apartamentos" value="" min="1" placeholder="Digite a quantidade">
@@ -489,10 +394,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title">
-          <i class="fa-solid fa-chart-line"></i>
-          Resultado
-        </div>
+        <div class="card-title"><i class="fa-solid fa-chart-line"></i> Resultado</div>
         <div class="result-grid">
           <div class="result-item">
             <div class="label"><i class="fa-solid fa-money-bill-wave"></i>Valor Original</div>
@@ -511,17 +413,23 @@
             <div class="value" id="economia">R$ 0</div>
           </div>
           <div class="result-item destaque">
-            <div class="label"><i class="fa-solid fa-check-circle"></i>VALOR FINAL</div>
+            <div class="label"><i class="fa-solid fa-check-circle"></i>VALOR FINAL MENSAL</div>
             <div class="value" id="valorFinal">R$ 0</div>
           </div>
+        </div>
+
+        <!-- TAXA DE IMPLANTAÇÃO -->
+        <div class="implantacao-box">
+          <div>
+            <div class="imp-label"><i class="fa-solid fa-rocket"></i> Taxa de Implantação (30% da mensalidade)</div>
+            <div style="font-size: 12px; opacity: 0.8; margin-top: 3px;">Pagamento único • Arredondado para cima</div>
+          </div>
+          <div class="imp-value" id="taxaImplantacao">R$ 0</div>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">
-          <i class="fa-solid fa-box-open"></i>
-          O que está incluso
-        </div>
+        <div class="card-title"><i class="fa-solid fa-box-open"></i> O que está incluso</div>
         <div class="incluso-list">
           <div class="incluso-item"><span class="check"><i class="fa-solid fa-check"></i></span>Implantação</div>
           <div class="incluso-item"><span class="check"><i class="fa-solid fa-check"></i></span>Treinamento</div>
@@ -533,10 +441,7 @@
       </div>
 
       <div class="card">
-        <div class="card-title">
-          <i class="fa-solid fa-bolt"></i>
-          Ações
-        </div>
+        <div class="card-title"><i class="fa-solid fa-bolt"></i> Ações</div>
         <div class="actions">
           <button class="btn btn-primary" onclick="calcular()"><i class="fa-solid fa-calculator"></i>Calcular</button>
           <button class="btn btn-orange" onclick="fecharNegociacao()"><i class="fa-solid fa-bullseye"></i>Fechar Negociação</button>
@@ -549,10 +454,7 @@
 
     <div class="sidebar">
       <div class="sidebar-card">
-        <div class="sidebar-title">
-          <i class="fa-solid fa-chart-pie"></i>
-          RESUMO EM TEMPO REAL
-        </div>
+        <div class="sidebar-title"><i class="fa-solid fa-chart-pie"></i> RESUMO EM TEMPO REAL</div>
         <div class="sidebar-item">
           <span class="s-label"><i class="fa-solid fa-building"></i>Apartamentos</span>
           <span class="s-value" id="sAptos">-</span>
@@ -570,12 +472,16 @@
           <span class="s-value" id="sEconomia">R$ 0</span>
         </div>
         <div class="sidebar-destaque">
-          <div class="small-label"><i class="fa-solid fa-check-double"></i>VALOR FINAL</div>
+          <div class="small-label"><i class="fa-solid fa-check-double"></i>VALOR FINAL MENSAL</div>
           <div class="big-value" id="sFinal">R$ 0</div>
         </div>
         <div class="sidebar-item" style="margin-top: 15px;">
           <span class="s-label"><i class="fa-solid fa-coins"></i>Custo por apto</span>
           <span class="s-value" id="sCustoApto">R$ 0,00</span>
+        </div>
+        <div class="sidebar-item">
+          <span class="s-label"><i class="fa-solid fa-rocket"></i>Implantação</span>
+          <span class="s-value" id="sImplantacao">R$ 0</span>
         </div>
       </div>
     </div>
@@ -595,7 +501,9 @@
 </div>
 
 <script>
-  // ✅ NOVA TABELA DE PREÇOS ATUALIZADA
+  // ============================================
+  // NOVA TABELA DE PREÇOS
+  // ============================================
   function getValorTotalPorFaixa(qtdAptos) {
     if (qtdAptos <= 20) return 1250;
     if (qtdAptos <= 30) return 1500;
@@ -616,6 +524,14 @@
     if (qtdAptos <= 190) return 4100;
     if (qtdAptos <= 200) return 4400;
     return 4400;
+  }
+
+  // ============================================
+  // ARREDONDAR PARA CIMA (centenas)
+  // Ex: 550 → 600 | 1050 → 1100 | 300 → 300
+  // ============================================
+  function arredondarCimaCentena(valor) {
+    return Math.ceil(valor / 100) * 100;
   }
 
   function formatarMoeda(valor) {
@@ -640,15 +556,18 @@
       document.getElementById('descontoValor').textContent = '0%';
       document.getElementById('economia').textContent = 'R$ 0';
       document.getElementById('valorFinal').textContent = 'R$ 0';
+      document.getElementById('taxaImplantacao').textContent = 'R$ 0';
       document.getElementById('sAptos').textContent = '-';
       document.getElementById('sMensal').textContent = 'R$ 0';
       document.getElementById('sDesc').textContent = '0%';
       document.getElementById('sEconomia').textContent = 'R$ 0';
       document.getElementById('sFinal').textContent = 'R$ 0';
       document.getElementById('sCustoApto').textContent = 'R$ 0,00';
+      document.getElementById('sImplantacao').textContent = 'R$ 0';
       return;
     }
 
+    // Calcula valor por apartamento automaticamente se não foi editado
     if (valorPorApto === 0 || valorPorAptoInput === '') {
       const valorTotal = getValorTotalPorFaixa(apts);
       valorPorApto = valorTotal / apts;
@@ -660,11 +579,16 @@
     const valorFinal = Math.ceil(valorOriginal - economia);
     const custoFinalApto = Math.ceil(valorFinal / apts);
 
+    // ✅ TAXA DE IMPLANTAÇÃO: 30% da mensalidade, arredondado para cima (centenas)
+    const implantacaoBruta = valorFinal * 0.30;
+    const taxaImplantacao = arredondarCimaCentena(implantacaoBruta);
+
     document.getElementById('valorOriginal').textContent = formatarMoeda(valorOriginal);
     document.getElementById('valorAptoExibicao').textContent = formatarMoedaDecimal(valorPorApto);
     document.getElementById('descontoValor').textContent = desc + '%';
     document.getElementById('economia').textContent = formatarMoeda(economia);
     document.getElementById('valorFinal').textContent = formatarMoeda(valorFinal);
+    document.getElementById('taxaImplantacao').textContent = formatarMoeda(taxaImplantacao);
 
     document.getElementById('sAptos').textContent = apts;
     document.getElementById('sMensal').textContent = formatarMoeda(valorOriginal);
@@ -672,6 +596,7 @@
     document.getElementById('sEconomia').textContent = formatarMoeda(economia);
     document.getElementById('sFinal').textContent = formatarMoeda(valorFinal);
     document.getElementById('sCustoApto').textContent = formatarMoedaDecimal(custoFinalApto);
+    document.getElementById('sImplantacao').textContent = formatarMoeda(taxaImplantacao);
   }
 
   function getLogoSVG() {
@@ -714,6 +639,7 @@
     const valorOriginal = Math.ceil(parseInt(apts || 0) * parseFloat(valorPorApto || 0));
     const valorFinal = Math.ceil(valorOriginal - (valorOriginal * desc / 100));
     const custoApto = apts ? Math.ceil(valorFinal / parseInt(apts)) : 0;
+    const taxaImplantacao = arredondarCimaCentena(valorFinal * 0.30);
     const dataAtual = new Date().toLocaleDateString('pt-BR');
 
     const html = `
@@ -743,6 +669,15 @@
           <tr><td>Economia:</td><td>${formatarMoeda(Math.ceil(valorOriginal * desc / 100))}</td></tr>
           <tr><td>Valor Final por Apartamento:</td><td>${formatarMoeda(custoApto)}</td></tr>
         </table>
+      </div>
+
+      <div class="proposta-section">
+        <h3><i class="fa-solid fa-rocket"></i> Taxa de Implantação</h3>
+        <div style="background: linear-gradient(135deg, #F59E0B, #D97706); color: white; padding: 20px; border-radius: 14px; text-align: center;">
+          <div style="font-size: 13px; opacity: 0.9;">Pagamento único • 30% da mensalidade</div>
+          <div style="font-size: 36px; font-weight: 800; margin-top: 5px;">${formatarMoeda(taxaImplantacao)}</div>
+          <div style="font-size: 12px; opacity: 0.8; margin-top: 5px;">Valor arredondado para cima</div>
+        </div>
       </div>
 
       <div class="proposta-section">
@@ -854,16 +789,18 @@
     const valorOriginal = Math.ceil(parseInt(apts) * parseFloat(valorPorApto || 0));
     const valorFinal = Math.ceil(valorOriginal - (valorOriginal * desc / 100));
     const custoApto = Math.ceil(valorFinal / parseInt(apts));
+    const taxaImplantacao = arredondarCimaCentena(valorFinal * 0.30);
 
-    const texto = ` *CONDOUP - Proposta Comercial*%0A%0A` +
+    const texto = `🏢 *CONDOUP - Proposta Comercial*%0A%0A` +
       `*Condomínio:* ${condominio}%0A` +
       `*Apartamentos:* ${apts}%0A` +
       `*Valor por apto:* R$ ${parseFloat(valorPorApto || 0).toFixed(2).replace('.', ',')}%0A` +
       `*Desconto:* ${desc}%25%0A%0A` +
-      ` Valor Original: ${formatarMoeda(valorOriginal)}%0A` +
+      `💰 Valor Original: ${formatarMoeda(valorOriginal)}%0A` +
       `💸 Economia: ${formatarMoeda(Math.ceil(valorOriginal * desc / 100))}%0A` +
-      `✅ *Valor Final:* ${formatarMoeda(valorFinal)}%0A` +
-      `💵 Custo por apto: ${formatarMoeda(custoApto)}%0A%0A` +
+      `✅ *Valor Final Mensal:* ${formatarMoeda(valorFinal)}%0A` +
+      ` Custo por apto: ${formatarMoeda(custoApto)}%0A` +
+      `🚀 *Taxa de Implantação:* ${formatarMoeda(taxaImplantacao)} (pagamento único)%0A%0A` +
       `📦 Incluso: Implantação, Treinamento, Suporte, Sistema Web + PWA%0A%0A` +
       `_Proposta válida por 15 dias_`;
 
