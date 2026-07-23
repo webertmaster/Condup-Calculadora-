@@ -483,6 +483,17 @@
           <span class="s-label"><i class="fa-solid fa-rocket"></i>Implantação</span>
           <span class="s-value" id="sImplantacao">R$ 0</span>
         </div>
+        
+        <!-- NOVO: PREÇO SUGERIDO INTERNO (NÃO VAZARÁ PARA O CLIENTE) -->
+        <div class="sidebar-item" style="border-top: 1px solid rgba(255,255,255,0.2); margin-top: 15px; padding-top: 15px;">
+          <span class="s-label" style="color: #F59E0B;"><i class="fa-solid fa-eye-slash"></i> Sugerido Interno (+15%)</span>
+          <span class="s-value" id="sPrecoSugerido" style="color: #F59E0B;">R$ 0</span>
+        </div>
+        <div style="font-size: 10px; color: rgba(255,255,255,0.5); text-align: center; margin-top: 5px;">
+          *Visível apenas para uso interno da equipe
+        </div>
+        <!-- FIM NOVO -->
+
       </div>
     </div>
   </div>
@@ -540,7 +551,6 @@
 
   // ============================================
   // ARREDONDAR PARA CIMA (centenas)
-  // Ex: 550 → 600 | 1050 → 1100 | 300 → 300
   // ============================================
   function arredondarCimaCentena(valor) {
     return Math.ceil(valor / 100) * 100;
@@ -576,6 +586,7 @@
       document.getElementById('sFinal').textContent = 'R$ 0';
       document.getElementById('sCustoApto').textContent = 'R$ 0,00';
       document.getElementById('sImplantacao').textContent = 'R$ 0';
+      document.getElementById('sPrecoSugerido').textContent = 'R$ 0'; // Reset interno
       return;
     }
 
@@ -595,12 +606,19 @@
     const implantacaoBruta = valorFinal * 0.30;
     const taxaImplantacao = arredondarCimaCentena(implantacaoBruta);
 
+    // ✅ NOVO: PREÇO SUGERIDO
+    // Se preferir 10%, mude 1.15 para 1.10 abaixo.
+    const precoSugerido = Math.ceil(valorFinal * 1.10);
+
     document.getElementById('valorOriginal').textContent = formatarMoeda(valorOriginal);
     document.getElementById('valorAptoExibicao').textContent = formatarMoedaDecimal(valorPorApto);
     document.getElementById('descontoValor').textContent = desc + '%';
     document.getElementById('economia').textContent = formatarMoeda(economia);
     document.getElementById('valorFinal').textContent = formatarMoeda(valorFinal);
     document.getElementById('taxaImplantacao').textContent = formatarMoeda(taxaImplantacao);
+    
+    // Atualiza o valor interno na sidebar
+    document.getElementById('sPrecoSugerido').textContent = formatarMoeda(precoSugerido);
 
     document.getElementById('sAptos').textContent = apts;
     document.getElementById('sMensal').textContent = formatarMoeda(valorOriginal);
@@ -654,6 +672,7 @@
     const taxaImplantacao = arredondarCimaCentena(valorFinal * 0.30);
     const dataAtual = new Date().toLocaleDateString('pt-BR');
 
+    // ⚠️ ATENÇÃO: O preço sugerido interno NÃO é incluído neste HTML para não vazar no PDF/Modal
     const html = `
       <div class="proposta-header">
         ${getLogoSVG()}
@@ -803,6 +822,7 @@
     const custoApto = Math.ceil(valorFinal / parseInt(apts));
     const taxaImplantacao = arredondarCimaCentena(valorFinal * 0.30);
 
+    // ⚠️ ATENÇÃO: O preço sugerido interno NÃO é incluído nesta mensagem para não vazar no WhatsApp
     const texto = `🏢 *CONDOUP - Proposta Comercial*%0A%0A` +
       `*Condomínio:* ${condominio}%0A` +
       `*Apartamentos:* ${apts}%0A` +
