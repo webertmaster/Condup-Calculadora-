@@ -16,6 +16,7 @@
     --branco: #FFFFFF;
     --cinza-claro: #F1F5F9;
     --cinza: #94A3B8;
+    --laranja: #F59E0B;
     --sombra: 0 10px 30px rgba(0,0,0,0.1);
   }
 
@@ -137,6 +138,7 @@
   }
   .result-item .label i { color: var(--azul-claro); }
   .result-item .value { font-size: 22px; font-weight: 800; color: var(--azul-escuro); }
+  
   .result-item.destaque {
     background: linear-gradient(135deg, var(--azul-escuro), var(--azul-claro));
     grid-column: span 2;
@@ -144,6 +146,16 @@
   .result-item.destaque .label,
   .result-item.destaque .value { color: var(--branco); }
   .result-item.destaque .value { font-size: 32px; }
+
+  .result-item.sugerido {
+    background: linear-gradient(135deg, var(--laranja), #D97706);
+    grid-column: span 2;
+    border: 3px solid var(--laranja);
+  }
+  .result-item.sugerido .label,
+  .result-item.sugerido .value { color: var(--branco); }
+  .result-item.sugerido .value { font-size: 36px; }
+  .result-item.sugerido .label { font-size: 14px; opacity: 0.95; }
 
   .incluso-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .incluso-item {
@@ -210,6 +222,7 @@
   .sidebar-item:last-child { border-bottom: none; }
   .sidebar-item .s-label { font-size: 13px; opacity: 0.8; display: flex; align-items: center; gap: 8px; }
   .sidebar-item .s-value { font-size: 16px; font-weight: 700; }
+  
   .sidebar-destaque {
     background: rgba(59, 130, 246, 0.15);
     border: 2px solid var(--azul-claro);
@@ -220,6 +233,17 @@
   }
   .sidebar-destaque .big-value { font-size: 32px; font-weight: 800; color: var(--azul-claro); margin-top: 5px; }
   .sidebar-destaque .small-label { font-size: 12px; opacity: 0.8; }
+
+  .sidebar-sugerido {
+    background: rgba(245, 158, 11, 0.15);
+    border: 2px solid var(--laranja);
+    border-radius: 14px;
+    padding: 18px;
+    margin-top: 15px;
+    text-align: center;
+  }
+  .sidebar-sugerido .big-value { font-size: 32px; font-weight: 800; color: var(--laranja); margin-top: 5px; }
+  .sidebar-sugerido .small-label { font-size: 12px; opacity: 0.8; color: var(--laranja); }
 
   .modal {
     display: none;
@@ -308,7 +332,7 @@
     .main-grid { grid-template-columns: 1fr; }
     .sidebar { position: static; }
     .result-grid { grid-template-columns: 1fr; }
-    .result-item.destaque { grid-column: span 1; }
+    .result-item.destaque, .result-item.sugerido { grid-column: span 1; }
     .incluso-list { grid-template-columns: 1fr; }
     .header { flex-direction: column; gap: 15px; }
   }
@@ -412,9 +436,17 @@
             <div class="label"><i class="fa-solid fa-piggy-bank"></i>Economia</div>
             <div class="value" id="economia">R$ 0</div>
           </div>
+          
+          <!-- VALOR MÍNIMO (BASE) -->
           <div class="result-item destaque">
-            <div class="label"><i class="fa-solid fa-check-circle"></i>VALOR FINAL MENSAL</div>
-            <div class="value" id="valorFinal">R$ 0</div>
+            <div class="label"><i class="fa-solid fa-shield-halved"></i>VALOR MÍNIMO (BASE)</div>
+            <div class="value" id="valorMinimo">R$ 0</div>
+          </div>
+          
+          <!-- VALOR SUGERIDO PARA NEGOCIAÇÃO -->
+          <div class="result-item sugerido">
+            <div class="label"><i class="fa-solid fa-handshake"></i>VALOR SUGERIDO (+10%)</div>
+            <div class="value" id="valorSugerido">R$ 0</div>
           </div>
         </div>
 
@@ -471,10 +503,19 @@
           <span class="s-label"><i class="fa-solid fa-sack-dollar"></i>Economia</span>
           <span class="s-value" id="sEconomia">R$ 0</span>
         </div>
+        
+        <!-- VALOR MÍNIMO NA SIDEBAR -->
         <div class="sidebar-destaque">
-          <div class="small-label"><i class="fa-solid fa-check-double"></i>VALOR FINAL MENSAL</div>
-          <div class="big-value" id="sFinal">R$ 0</div>
+          <div class="small-label"><i class="fa-solid fa-shield-halved"></i>VALOR MÍNIMO</div>
+          <div class="big-value" id="sMinimo">R$ 0</div>
         </div>
+        
+        <!-- VALOR SUGERIDO NA SIDEBAR -->
+        <div class="sidebar-sugerido">
+          <div class="small-label"><i class="fa-solid fa-handshake"></i>SUGERIDO (+10%)</div>
+          <div class="big-value" id="sSugerido">R$ 0</div>
+        </div>
+        
         <div class="sidebar-item" style="margin-top: 15px;">
           <span class="s-label"><i class="fa-solid fa-coins"></i>Custo por apto</span>
           <span class="s-value" id="sCustoApto">R$ 0,00</span>
@@ -483,17 +524,6 @@
           <span class="s-label"><i class="fa-solid fa-rocket"></i>Implantação</span>
           <span class="s-value" id="sImplantacao">R$ 0</span>
         </div>
-        
-        <!-- NOVO: PREÇO SUGERIDO INTERNO (NÃO VAZARÁ PARA O CLIENTE) -->
-        <div class="sidebar-item" style="border-top: 1px solid rgba(255,255,255,0.2); margin-top: 15px; padding-top: 15px;">
-          <span class="s-label" style="color: #F59E0B;"><i class="fa-solid fa-eye-slash"></i> Sugerido Interno (+15%)</span>
-          <span class="s-value" id="sPrecoSugerido" style="color: #F59E0B;">R$ 0</span>
-        </div>
-        <div style="font-size: 10px; color: rgba(255,255,255,0.5); text-align: center; margin-top: 5px;">
-          *Visível apenas para uso interno da equipe
-        </div>
-        <!-- FIM NOVO -->
-
       </div>
     </div>
   </div>
@@ -577,16 +607,18 @@
       document.getElementById('valorAptoExibicao').textContent = 'R$ 0,00';
       document.getElementById('descontoValor').textContent = '0%';
       document.getElementById('economia').textContent = 'R$ 0';
-      document.getElementById('valorFinal').textContent = 'R$ 0';
+      document.getElementById('valorMinimo').textContent = 'R$ 0';
+      document.getElementById('valorSugerido').textContent = 'R$ 0';
       document.getElementById('taxaImplantacao').textContent = 'R$ 0';
+      
       document.getElementById('sAptos').textContent = '-';
       document.getElementById('sMensal').textContent = 'R$ 0';
       document.getElementById('sDesc').textContent = '0%';
       document.getElementById('sEconomia').textContent = 'R$ 0';
-      document.getElementById('sFinal').textContent = 'R$ 0';
+      document.getElementById('sMinimo').textContent = 'R$ 0';
+      document.getElementById('sSugerido').textContent = 'R$ 0';
       document.getElementById('sCustoApto').textContent = 'R$ 0,00';
       document.getElementById('sImplantacao').textContent = 'R$ 0';
-      document.getElementById('sPrecoSugerido').textContent = 'R$ 0'; // Reset interno
       return;
     }
 
@@ -599,32 +631,28 @@
 
     const valorOriginal = Math.ceil(apts * valorPorApto);
     const economia = Math.ceil((valorOriginal * desc) / 100);
-    const valorFinal = Math.ceil(valorOriginal - economia);
-    const custoFinalApto = Math.ceil(valorFinal / apts);
+    const valorMinimo = Math.ceil(valorOriginal - economia); // Valor com desconto aplicado
+    const valorSugerido = Math.ceil(valorMinimo * 1.10); // +10% para negociação
+    const custoFinalApto = Math.ceil(valorMinimo / apts);
 
-    // ✅ TAXA DE IMPLANTAÇÃO: 30% da mensalidade, arredondado para cima (centenas)
-    const implantacaoBruta = valorFinal * 0.30;
+    // ✅ TAXA DE IMPLANTAÇÃO: 30% da mensalidade (valor mínimo), arredondado para cima (centenas)
+    const implantacaoBruta = valorMinimo * 0.30;
     const taxaImplantacao = arredondarCimaCentena(implantacaoBruta);
-
-    // ✅ NOVO: PREÇO SUGERIDO
-    // Se preferir 10%, mude 1.15 para 1.10 abaixo.
-    const precoSugerido = Math.ceil(valorFinal * 1.10);
 
     document.getElementById('valorOriginal').textContent = formatarMoeda(valorOriginal);
     document.getElementById('valorAptoExibicao').textContent = formatarMoedaDecimal(valorPorApto);
     document.getElementById('descontoValor').textContent = desc + '%';
     document.getElementById('economia').textContent = formatarMoeda(economia);
-    document.getElementById('valorFinal').textContent = formatarMoeda(valorFinal);
+    document.getElementById('valorMinimo').textContent = formatarMoeda(valorMinimo);
+    document.getElementById('valorSugerido').textContent = formatarMoeda(valorSugerido);
     document.getElementById('taxaImplantacao').textContent = formatarMoeda(taxaImplantacao);
-    
-    // Atualiza o valor interno na sidebar
-    document.getElementById('sPrecoSugerido').textContent = formatarMoeda(precoSugerido);
 
     document.getElementById('sAptos').textContent = apts;
     document.getElementById('sMensal').textContent = formatarMoeda(valorOriginal);
     document.getElementById('sDesc').textContent = desc + '%';
     document.getElementById('sEconomia').textContent = formatarMoeda(economia);
-    document.getElementById('sFinal').textContent = formatarMoeda(valorFinal);
+    document.getElementById('sMinimo').textContent = formatarMoeda(valorMinimo);
+    document.getElementById('sSugerido').textContent = formatarMoeda(valorSugerido);
     document.getElementById('sCustoApto').textContent = formatarMoedaDecimal(custoFinalApto);
     document.getElementById('sImplantacao').textContent = formatarMoeda(taxaImplantacao);
   }
@@ -667,12 +695,12 @@
     const desc = document.getElementById('desconto').value || 0;
     
     const valorOriginal = Math.ceil(parseInt(apts || 0) * parseFloat(valorPorApto || 0));
-    const valorFinal = Math.ceil(valorOriginal - (valorOriginal * desc / 100));
-    const custoApto = apts ? Math.ceil(valorFinal / parseInt(apts)) : 0;
-    const taxaImplantacao = arredondarCimaCentena(valorFinal * 0.30);
+    const valorMinimo = Math.ceil(valorOriginal - (valorOriginal * desc / 100));
+    const valorSugerido = Math.ceil(valorMinimo * 1.10);
+    const custoApto = apts ? Math.ceil(valorMinimo / parseInt(apts)) : 0;
+    const taxaImplantacao = arredondarCimaCentena(valorMinimo * 0.30);
     const dataAtual = new Date().toLocaleDateString('pt-BR');
 
-    // ⚠️ ATENÇÃO: O preço sugerido interno NÃO é incluído neste HTML para não vazar no PDF/Modal
     const html = `
       <div class="proposta-header">
         ${getLogoSVG()}
@@ -698,6 +726,8 @@
           <tr><td>Valor Original:</td><td>${formatarMoeda(valorOriginal)}</td></tr>
           <tr><td>Desconto Aplicado:</td><td>${desc}%</td></tr>
           <tr><td>Economia:</td><td>${formatarMoeda(Math.ceil(valorOriginal * desc / 100))}</td></tr>
+          <tr><td>Valor Mínimo (Base):</td><td style="color: #3B82F6; font-weight: bold;">${formatarMoeda(valorMinimo)}</td></tr>
+          <tr><td>Valor Sugerido (+10%):</td><td style="color: #F59E0B; font-weight: bold;">${formatarMoeda(valorSugerido)}</td></tr>
           <tr><td>Valor Final por Apartamento:</td><td>${formatarMoeda(custoApto)}</td></tr>
         </table>
       </div>
@@ -727,9 +757,12 @@
         <div style="font-size: 14px; opacity: 0.9;">
           <i class="fa-solid fa-check-circle"></i> VALOR FINAL MENSAL
         </div>
-        <div class="valor">${formatarMoeda(valorFinal)}</div>
+        <div class="valor">${formatarMoeda(valorMinimo)}</div>
         <div style="font-size: 13px; margin-top: 5px; opacity: 0.9;">
           Equivalente a ${formatarMoeda(custoApto)} por apartamento
+        </div>
+        <div style="font-size: 12px; margin-top: 10px; opacity: 0.8;">
+          <i class="fa-solid fa-handshake"></i> Sugestão de negociação: ${formatarMoeda(valorSugerido)}
         </div>
       </div>
 
@@ -813,16 +846,16 @@
     const desc = document.getElementById('desconto').value || 0;
     
     if (!apts || parseInt(apts) === 0) {
-      alert('⚠️ Por favor, preencha a quantidade de apartamentos.');
+      alert('️ Por favor, preencha a quantidade de apartamentos.');
       return;
     }
     
     const valorOriginal = Math.ceil(parseInt(apts) * parseFloat(valorPorApto || 0));
-    const valorFinal = Math.ceil(valorOriginal - (valorOriginal * desc / 100));
-    const custoApto = Math.ceil(valorFinal / parseInt(apts));
-    const taxaImplantacao = arredondarCimaCentena(valorFinal * 0.30);
+    const valorMinimo = Math.ceil(valorOriginal - (valorOriginal * desc / 100));
+    const valorSugerido = Math.ceil(valorMinimo * 1.10);
+    const custoApto = Math.ceil(valorMinimo / parseInt(apts));
+    const taxaImplantacao = arredondarCimaCentena(valorMinimo * 0.30);
 
-    // ⚠️ ATENÇÃO: O preço sugerido interno NÃO é incluído nesta mensagem para não vazar no WhatsApp
     const texto = `🏢 *CONDOUP - Proposta Comercial*%0A%0A` +
       `*Condomínio:* ${condominio}%0A` +
       `*Apartamentos:* ${apts}%0A` +
@@ -830,7 +863,8 @@
       `*Desconto:* ${desc}%25%0A%0A` +
       `💰 Valor Original: ${formatarMoeda(valorOriginal)}%0A` +
       `💸 Economia: ${formatarMoeda(Math.ceil(valorOriginal * desc / 100))}%0A` +
-      `✅ *Valor Final Mensal:* ${formatarMoeda(valorFinal)}%0A` +
+      `✅ *Valor Mínimo:* ${formatarMoeda(valorMinimo)}%0A` +
+      `💡 *Sugestão (+10%):* ${formatarMoeda(valorSugerido)}%0A` +
       ` Custo por apto: ${formatarMoeda(custoApto)}%0A` +
       `🚀 *Taxa de Implantação:* ${formatarMoeda(taxaImplantacao)} (pagamento único)%0A%0A` +
       `📦 Incluso: Implantação, Treinamento, Suporte, Sistema Web + PWA%0A%0A` +
