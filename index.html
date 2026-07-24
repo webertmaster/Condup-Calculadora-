@@ -157,6 +157,43 @@
   .result-item.sugerido .value { font-size: 36px; }
   .result-item.sugerido .label { font-size: 14px; opacity: 0.95; }
 
+  .custo-apto-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 15px;
+  }
+  .custo-apto-item {
+    background: var(--cinza-claro);
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    border: 2px solid transparent;
+  }
+  .custo-apto-item.base {
+    border-color: var(--azul-claro);
+    background: rgba(59, 130, 246, 0.1);
+  }
+  .custo-apto-item.sugerido {
+    border-color: var(--laranja);
+    background: rgba(245, 158, 11, 0.1);
+  }
+  .custo-apto-item .label {
+    font-size: 12px;
+    color: var(--cinza);
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  .custo-apto-item.base .label { color: var(--azul-claro); }
+  .custo-apto-item.sugerido .label { color: var(--laranja); }
+  .custo-apto-item .value {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--azul-escuro);
+  }
+  .custo-apto-item.base .value { color: var(--azul-claro); }
+  .custo-apto-item.sugerido .value { color: var(--laranja); }
+
   .incluso-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .incluso-item {
     display: flex;
@@ -333,6 +370,7 @@
     .sidebar { position: static; }
     .result-grid { grid-template-columns: 1fr; }
     .result-item.destaque, .result-item.sugerido { grid-column: span 1; }
+    .custo-apto-grid { grid-template-columns: 1fr; }
     .incluso-list { grid-template-columns: 1fr; }
     .header { flex-direction: column; gap: 15px; }
   }
@@ -450,10 +488,22 @@
           </div>
         </div>
 
+        <!-- CUSTO POR APARTAMENTO - BASE E SUGERIDO -->
+        <div class="custo-apto-grid">
+          <div class="custo-apto-item base">
+            <div class="label"><i class="fa-solid fa-coins"></i> Por Apto (Base)</div>
+            <div class="value" id="custoAptoBase">R$ 0,00</div>
+          </div>
+          <div class="custo-apto-item sugerido">
+            <div class="label"><i class="fa-solid fa-coins"></i> Por Apto (Sugerido)</div>
+            <div class="value" id="custoAptoSugerido">R$ 0,00</div>
+          </div>
+        </div>
+
         <!-- TAXA DE IMPLANTAÇÃO -->
         <div class="implantacao-box">
           <div>
-            <div class="imp-label"><i class="fa-solid fa-rocket"></i> Taxa de Implantação (30% da mensalidade)</div>
+            <div class="imp-label"><i class="fa-solid fa-rocket"></i> Taxa de Implantação (30% do valor sugerido)</div>
             <div style="font-size: 12px; opacity: 0.8; margin-top: 3px;">Pagamento único • Arredondado para cima</div>
           </div>
           <div class="imp-value" id="taxaImplantacao">R$ 0</div>
@@ -510,17 +560,25 @@
           <div class="big-value" id="sMinimo">R$ 0</div>
         </div>
         
+        <!-- CUSTO POR APTO BASE -->
+        <div class="sidebar-item" style="margin-top: 10px;">
+          <span class="s-label" style="color: var(--azul-claro);"><i class="fa-solid fa-coins"></i> Por Apto (Base)</span>
+          <span class="s-value" id="sCustoAptoBase" style="color: var(--azul-claro);">R$ 0,00</span>
+        </div>
+        
         <!-- VALOR SUGERIDO NA SIDEBAR -->
         <div class="sidebar-sugerido">
           <div class="small-label"><i class="fa-solid fa-handshake"></i>SUGERIDO (+10%)</div>
           <div class="big-value" id="sSugerido">R$ 0</div>
         </div>
         
-        <div class="sidebar-item" style="margin-top: 15px;">
-          <span class="s-label"><i class="fa-solid fa-coins"></i>Custo por apto</span>
-          <span class="s-value" id="sCustoApto">R$ 0,00</span>
+        <!-- CUSTO POR APTO SUGERIDO -->
+        <div class="sidebar-item" style="margin-top: 10px;">
+          <span class="s-label" style="color: var(--laranja);"><i class="fa-solid fa-coins"></i> Por Apto (Sugerido)</span>
+          <span class="s-value" id="sCustoAptoSugerido" style="color: var(--laranja);">R$ 0,00</span>
         </div>
-        <div class="sidebar-item">
+        
+        <div class="sidebar-item" style="border-top: 1px solid rgba(255,255,255,0.2); margin-top: 15px; padding-top: 15px;">
           <span class="s-label"><i class="fa-solid fa-rocket"></i>Implantação</span>
           <span class="s-value" id="sImplantacao">R$ 0</span>
         </div>
@@ -558,18 +616,18 @@
     if (qtdAptos <= 90) return 2500;
     if (qtdAptos <= 100) return 2700;
     if (qtdAptos <= 110) return 2900;
-    if (qtdAptos <= 120) return 3300;
+    if (qtdAptos <= 120) return 3200;
     if (qtdAptos <= 130) return 3500;
-    if (qtdAptos <= 140) return 3800;
-    if (qtdAptos <= 150) return 4100;
-    if (qtdAptos <= 160) return 4400;
-    if (qtdAptos <= 171) return 5100;
-    if (qtdAptos <= 190) return 4800;
-    if (qtdAptos <= 200) return 5000;
-    if (qtdAptos <= 210) return 5250;
-    if (qtdAptos <= 220) return 5500;
-    if (qtdAptos <= 230) return 5750;
-    if (qtdAptos <= 240) return 6000;
+    if (qtdAptos <= 140) return 3700;
+    if (qtdAptos <= 150) return 4000;
+    if (qtdAptos <= 160) return 4300;
+    if (qtdAptos <= 171) return 4600;
+    if (qtdAptos <= 190) return 4900;
+    if (qtdAptos <= 200) return 5200;
+    if (qtdAptos <= 210) return 5500;
+    if (qtdAptos <= 220) return 5700;
+    if (qtdAptos <= 230) return 5900;
+    if (qtdAptos <= 240) return 6100;
     if (qtdAptos <= 250) return 6300;
     if (qtdAptos <= 260) return 6600;
     if (qtdAptos <= 270) return 6800;
@@ -609,6 +667,8 @@
       document.getElementById('economia').textContent = 'R$ 0';
       document.getElementById('valorMinimo').textContent = 'R$ 0';
       document.getElementById('valorSugerido').textContent = 'R$ 0';
+      document.getElementById('custoAptoBase').textContent = 'R$ 0,00';
+      document.getElementById('custoAptoSugerido').textContent = 'R$ 0,00';
       document.getElementById('taxaImplantacao').textContent = 'R$ 0';
       
       document.getElementById('sAptos').textContent = '-';
@@ -616,8 +676,9 @@
       document.getElementById('sDesc').textContent = '0%';
       document.getElementById('sEconomia').textContent = 'R$ 0';
       document.getElementById('sMinimo').textContent = 'R$ 0';
+      document.getElementById('sCustoAptoBase').textContent = 'R$ 0,00';
       document.getElementById('sSugerido').textContent = 'R$ 0';
-      document.getElementById('sCustoApto').textContent = 'R$ 0,00';
+      document.getElementById('sCustoAptoSugerido').textContent = 'R$ 0,00';
       document.getElementById('sImplantacao').textContent = 'R$ 0';
       return;
     }
@@ -632,12 +693,12 @@
     const valorOriginal = Math.ceil(apts * valorPorApto);
     const economia = Math.ceil((valorOriginal * desc) / 100);
     const valorMinimo = Math.ceil(valorOriginal - economia); // Valor com desconto aplicado
-    const valorSugerido = Math.ceil(valorMinimo * 1.10); // +10% para negociação
-    const custoFinalApto = Math.ceil(valorMinimo / apts);
+    const valorSugerido = arredondarCimaCentena(valorMinimo * 1.10); // +10% arredondado para cima (centena)
+    const custoAptoBase = valorMinimo / apts;
+    const custoAptoSugerido = valorSugerido / apts;
 
-    // ✅ TAXA DE IMPLANTAÇÃO: 30% da mensalidade (valor mínimo), arredondado para cima (centenas)
-    const implantacaoBruta = valorMinimo * 0.30;
-    const taxaImplantacao = arredondarCimaCentena(implantacaoBruta);
+    // ✅ TAXA DE IMPLANTAÇÃO: 30% do valor sugerido, arredondado para cima (centenas)
+    const taxaImplantacao = arredondarCimaCentena(valorSugerido * 0.30);
 
     document.getElementById('valorOriginal').textContent = formatarMoeda(valorOriginal);
     document.getElementById('valorAptoExibicao').textContent = formatarMoedaDecimal(valorPorApto);
@@ -645,6 +706,8 @@
     document.getElementById('economia').textContent = formatarMoeda(economia);
     document.getElementById('valorMinimo').textContent = formatarMoeda(valorMinimo);
     document.getElementById('valorSugerido').textContent = formatarMoeda(valorSugerido);
+    document.getElementById('custoAptoBase').textContent = formatarMoedaDecimal(custoAptoBase);
+    document.getElementById('custoAptoSugerido').textContent = formatarMoedaDecimal(custoAptoSugerido);
     document.getElementById('taxaImplantacao').textContent = formatarMoeda(taxaImplantacao);
 
     document.getElementById('sAptos').textContent = apts;
@@ -652,8 +715,9 @@
     document.getElementById('sDesc').textContent = desc + '%';
     document.getElementById('sEconomia').textContent = formatarMoeda(economia);
     document.getElementById('sMinimo').textContent = formatarMoeda(valorMinimo);
+    document.getElementById('sCustoAptoBase').textContent = formatarMoedaDecimal(custoAptoBase);
     document.getElementById('sSugerido').textContent = formatarMoeda(valorSugerido);
-    document.getElementById('sCustoApto').textContent = formatarMoedaDecimal(custoFinalApto);
+    document.getElementById('sCustoAptoSugerido').textContent = formatarMoedaDecimal(custoAptoSugerido);
     document.getElementById('sImplantacao').textContent = formatarMoeda(taxaImplantacao);
   }
 
@@ -696,9 +760,10 @@
     
     const valorOriginal = Math.ceil(parseInt(apts || 0) * parseFloat(valorPorApto || 0));
     const valorMinimo = Math.ceil(valorOriginal - (valorOriginal * desc / 100));
-    const valorSugerido = Math.ceil(valorMinimo * 1.10);
-    const custoApto = apts ? Math.ceil(valorMinimo / parseInt(apts)) : 0;
-    const taxaImplantacao = arredondarCimaCentena(valorMinimo * 0.30);
+    const valorSugerido = arredondarCimaCentena(valorMinimo * 1.10);
+    const custoAptoBase = apts ? (valorMinimo / parseInt(apts)).toFixed(2) : 0;
+    const custoAptoSugerido = apts ? (valorSugerido / parseInt(apts)).toFixed(2) : 0;
+    const taxaImplantacao = arredondarCimaCentena(valorSugerido * 0.30);
     const dataAtual = new Date().toLocaleDateString('pt-BR');
 
     const html = `
@@ -726,16 +791,17 @@
           <tr><td>Valor Original:</td><td>${formatarMoeda(valorOriginal)}</td></tr>
           <tr><td>Desconto Aplicado:</td><td>${desc}%</td></tr>
           <tr><td>Economia:</td><td>${formatarMoeda(Math.ceil(valorOriginal * desc / 100))}</td></tr>
-          <tr><td>Valor Mínimo (Base):</td><td style="color: #3B82F6; font-weight: bold;">${formatarMoeda(valorMinimo)}</td></tr>
-          <tr><td>Valor Sugerido (+10%):</td><td style="color: #F59E0B; font-weight: bold;">${formatarMoeda(valorSugerido)}</td></tr>
-          <tr><td>Valor Final por Apartamento:</td><td>${formatarMoeda(custoApto)}</td></tr>
+          <tr><td style="color: #3B82F6;"><strong>Valor Mínimo (Base):</strong></td><td style="color: #3B82F6; font-weight: bold;">${formatarMoeda(valorMinimo)}</td></tr>
+          <tr><td style="color: #F59E0B;"><strong>Valor Sugerido (+10%):</strong></td><td style="color: #F59E0B; font-weight: bold;">${formatarMoeda(valorSugerido)}</td></tr>
+          <tr><td>Custo por Apartamento (Base):</td><td>R$ ${custoAptoBase.replace('.', ',')}</td></tr>
+          <tr><td>Custo por Apartamento (Sugerido):</td><td style="color: #F59E0B; font-weight: bold;">R$ ${custoAptoSugerido.replace('.', ',')}</td></tr>
         </table>
       </div>
 
       <div class="proposta-section">
         <h3><i class="fa-solid fa-rocket"></i> Taxa de Implantação</h3>
         <div style="background: linear-gradient(135deg, #F59E0B, #D97706); color: white; padding: 20px; border-radius: 14px; text-align: center;">
-          <div style="font-size: 13px; opacity: 0.9;">Pagamento único • 30% da mensalidade</div>
+          <div style="font-size: 13px; opacity: 0.9;">Pagamento único • 30% do valor sugerido</div>
           <div style="font-size: 36px; font-weight: 800; margin-top: 5px;">${formatarMoeda(taxaImplantacao)}</div>
           <div style="font-size: 12px; opacity: 0.8; margin-top: 5px;">Valor arredondado para cima</div>
         </div>
@@ -759,10 +825,10 @@
         </div>
         <div class="valor">${formatarMoeda(valorMinimo)}</div>
         <div style="font-size: 13px; margin-top: 5px; opacity: 0.9;">
-          Equivalente a ${formatarMoeda(custoApto)} por apartamento
+          Equivalente a R$ ${custoAptoBase.replace('.', ',')} por apartamento
         </div>
-        <div style="font-size: 12px; margin-top: 10px; opacity: 0.8;">
-          <i class="fa-solid fa-handshake"></i> Sugestão de negociação: ${formatarMoeda(valorSugerido)}
+        <div style="font-size: 12px; margin-top: 10px; opacity: 0.8; background: rgba(255,255,255,0.2); padding: 8px; border-radius: 8px;">
+          <i class="fa-solid fa-handshake"></i> Sugestão de negociação: ${formatarMoeda(valorSugerido)} (R$ ${custoAptoSugerido.replace('.', ',')}/apto)
         </div>
       </div>
 
@@ -846,15 +912,16 @@
     const desc = document.getElementById('desconto').value || 0;
     
     if (!apts || parseInt(apts) === 0) {
-      alert('️ Por favor, preencha a quantidade de apartamentos.');
+      alert('⚠️ Por favor, preencha a quantidade de apartamentos.');
       return;
     }
     
     const valorOriginal = Math.ceil(parseInt(apts) * parseFloat(valorPorApto || 0));
     const valorMinimo = Math.ceil(valorOriginal - (valorOriginal * desc / 100));
-    const valorSugerido = Math.ceil(valorMinimo * 1.10);
-    const custoApto = Math.ceil(valorMinimo / parseInt(apts));
-    const taxaImplantacao = arredondarCimaCentena(valorMinimo * 0.30);
+    const valorSugerido = arredondarCimaCentena(valorMinimo * 1.10);
+    const custoAptoBase = (valorMinimo / parseInt(apts)).toFixed(2);
+    const custoAptoSugerido = (valorSugerido / parseInt(apts)).toFixed(2);
+    const taxaImplantacao = arredondarCimaCentena(valorSugerido * 0.30);
 
     const texto = `🏢 *CONDOUP - Proposta Comercial*%0A%0A` +
       `*Condomínio:* ${condominio}%0A` +
@@ -864,9 +931,10 @@
       `💰 Valor Original: ${formatarMoeda(valorOriginal)}%0A` +
       `💸 Economia: ${formatarMoeda(Math.ceil(valorOriginal * desc / 100))}%0A` +
       `✅ *Valor Mínimo:* ${formatarMoeda(valorMinimo)}%0A` +
+      `   Por apartamento: R$ ${custoAptoBase.replace('.', ',')}%0A` +
       `💡 *Sugestão (+10%):* ${formatarMoeda(valorSugerido)}%0A` +
-      ` Custo por apto: ${formatarMoeda(custoApto)}%0A` +
-      `🚀 *Taxa de Implantação:* ${formatarMoeda(taxaImplantacao)} (pagamento único)%0A%0A` +
+      `   Por apartamento: R$ ${custoAptoSugerido.replace('.', ',')}%0A` +
+      `🚀 *Taxa de Implantação:* ${formatarMoeda(taxaImplantacao)} (30% do valor sugerido)%0A%0A` +
       `📦 Incluso: Implantação, Treinamento, Suporte, Sistema Web + PWA%0A%0A` +
       `_Proposta válida por 15 dias_`;
 
