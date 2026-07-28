@@ -807,7 +807,8 @@
 
   function fecharModalWhatsApp() { document.getElementById('modalWhatsAppSelecao').classList.remove('active'); }
 
-  // ========================= ENVIO WHATSAPP function enviarWhatsApp(tipo) {
+  // ========================= ENVIO WHATSAPP CORRIGIDO =========================
+  function enviarWhatsApp(tipo) {
     const condominio = document.getElementById('condominio').value || 'Condomínio';
     const apts = parseInt(document.getElementById('apartamentos').value);
     calcular();
