@@ -46,7 +46,8 @@
   }
 
   .logo { display: flex; align-items: center; gap: 15px; }
-  .logo-svg { width: 60px; height: 60px; }
+  .logo-img { width: 60px; height: 60px; object-fit: contain; animation: pulseSeta 2s infinite ease-in-out; }
+  .logo-svg-fallback { width: 60px; height: 60px; display: none; animation: pulseSeta 2s infinite ease-in-out; }
   .logo-text { display: flex; flex-direction: column; }
   .logo-text .brand { font-size: 28px; font-weight: 800; line-height: 1; }
   .logo-text .brand .condo { color: var(--azul-escuro); }
@@ -121,17 +122,9 @@
     background: var(--branco);
     box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
   }
-  input::placeholder {
-    font-size: 16px;
-    color: #94A3B8;
-    opacity: 0.8;
-  }
+  input::placeholder { font-size: 16px; color: #94A3B8; opacity: 0.8; }
 
-  .input-group {
-    display: flex;
-    gap: 10px;
-    align-items: stretch;
-  }
+  .input-group { display: flex; gap: 10px; align-items: stretch; }
   .input-group input { flex: 1; }
   .btn-arredondar {
     padding: 18px 28px;
@@ -163,19 +156,28 @@
   .result-item .label i { color: var(--azul-claro); }
   .result-item .value { font-size: 22px; font-weight: 800; color: var(--azul-escuro); }
   .result-item.destaque { background: linear-gradient(135deg, var(--azul-escuro), var(--azul-claro)); grid-column: span 2; }
-  .result-item.destaque .label,
-  .result-item.destaque .value { color: var(--branco); }
+  .result-item.destaque .label, .result-item.destaque .value { color: var(--branco); }
   .result-item.destaque .value { font-size: 32px; }
-  .result-item.sugerido { background: linear-gradient(135deg, var(--laranja), #D97706); grid-column: span 2; border: 3px solid var(--laranja); }
-  .result-item.sugerido .label,
-  .result-item.sugerido .value { color: var(--branco); }
+
+  /* Efeito pulsante no valor sugerido */
+  .result-item.sugerido {
+    background: linear-gradient(135deg, var(--laranja), #D97706);
+    grid-column: span 2;
+    border: 3px solid var(--laranja);
+    animation: pulseSugerido 2s infinite ease-in-out;
+  }
+  .result-item.sugerido .label, .result-item.sugerido .value { color: var(--branco); }
   .result-item.sugerido .value { font-size: 36px; }
   .result-item.sugerido .label { font-size: 14px; opacity: 0.95; }
 
   .custo-apto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
   .custo-apto-item { background: var(--cinza-claro); padding: 15px; border-radius: 12px; text-align: center; border: 2px solid transparent; }
   .custo-apto-item.base { border-color: var(--azul-claro); background: rgba(59, 130, 246, 0.1); }
-  .custo-apto-item.sugerido { border-color: var(--laranja); background: rgba(245, 158, 11, 0.1); }
+  .custo-apto-item.sugerido {
+    border-color: var(--laranja);
+    background: rgba(245, 158, 11, 0.1);
+    animation: pulseSugerido 2s infinite ease-in-out; /* efeito pulsante adicionado */
+  }
   .custo-apto-item .label { font-size: 12px; color: var(--cinza); font-weight: 600; margin-bottom: 5px; }
   .custo-apto-item.base .label { color: var(--azul-claro); }
   .custo-apto-item.sugerido .label { color: var(--laranja); }
@@ -222,9 +224,25 @@
   .sidebar-destaque { background: rgba(59, 130, 246, 0.15); border: 2px solid var(--azul-claro); border-radius: 14px; padding: 18px; margin-top: 15px; text-align: center; }
   .sidebar-destaque .big-value { font-size: 32px; font-weight: 800; color: var(--azul-claro); margin-top: 5px; }
   .sidebar-destaque .small-label { font-size: 12px; opacity: 0.8; }
-  .sidebar-sugerido { background: rgba(245, 158, 11, 0.15); border: 2px solid var(--laranja); border-radius: 14px; padding: 18px; margin-top: 15px; text-align: center; }
+  .sidebar-sugerido {
+    background: rgba(245, 158, 11, 0.15);
+    border: 2px solid var(--laranja);
+    border-radius: 14px;
+    padding: 18px;
+    margin-top: 15px;
+    text-align: center;
+    animation: pulseSugerido 2s infinite ease-in-out;
+  }
   .sidebar-sugerido .big-value { font-size: 32px; font-weight: 800; color: var(--laranja); margin-top: 5px; }
   .sidebar-sugerido .small-label { font-size: 12px; opacity: 0.8; color: var(--laranja); }
+
+  /* Novo: efeito pulsante para o "Por Apto (Sugerido)" na sidebar */
+  #sidebarAptoSugerido {
+    animation: pulseSugerido 2s infinite ease-in-out;
+    border-radius: 8px;
+    padding: 8px;
+    margin-top: 5px;
+  }
 
   .modal {
     display: none;
@@ -264,7 +282,7 @@
   .close-modal:hover { background: #E2E8F0; }
 
   .proposta-header { text-align: center; padding-bottom: 20px; border-bottom: 3px solid var(--azul-claro); margin-bottom: 25px; }
-  .proposta-header .logo-svg { width: 80px; height: 80px; margin-bottom: 10px; }
+  .proposta-header .logo-img { width: 80px; height: 80px; margin-bottom: 10px; animation: pulseSeta 2s infinite ease-in-out; }
   .proposta-header h1 { color: var(--azul-escuro); font-size: 28px; margin-top: 10px; }
   .proposta-header h1 .condo { color: var(--azul-escuro); }
   .proposta-header h1 .up { color: var(--azul-claro); }
@@ -297,11 +315,7 @@
     text-align: center;
     position: relative;
   }
-  .modal-whatsapp-content h3 {
-    font-size: 20px;
-    margin-bottom: 25px;
-    color: var(--azul-escuro);
-  }
+  .modal-whatsapp-content h3 { font-size: 20px; margin-bottom: 25px; color: var(--azul-escuro); }
   .modal-whatsapp-content .btn-whatsapp-option {
     width: 100%;
     padding: 15px;
@@ -325,6 +339,16 @@
 
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+  
+  @keyframes pulseSeta {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+  
+  @keyframes pulseSugerido {
+    0%, 100% { box-shadow: 0 0 15px rgba(245, 158, 11, 0.4); border-color: var(--laranja); }
+    50% { box-shadow: 0 0 30px rgba(245, 158, 11, 0.8), 0 0 60px rgba(245, 158, 11, 0.3); border-color: #FBBF24; }
+  }
 
   @media (max-width: 968px) {
     .main-grid { grid-template-columns: 1fr; }
@@ -350,11 +374,11 @@
 </style>
 </head>
 <body>
-
 <div class="container">
   <div class="header">
     <div class="logo">
-      <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <img src="https://i.ibb.co/nN2kyTS5/logo.png" alt="CondoUp Logo" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <svg class="logo-svg-fallback" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
         <polygon points="45,10 55,10 55,55 45,55" fill="#0F172A"/>
         <polygon points="45,10 50,5 55,10" fill="#0F172A"/>
         <polygon points="25,30 40,30 40,65 25,65" fill="#0F172A"/>
@@ -423,7 +447,6 @@
           <div class="custo-apto-item base"><div class="label"><i class="fa-solid fa-coins"></i> Por Apto (Base)</div><div class="value" id="custoAptoBase">R$ 0,00</div></div>
           <div class="custo-apto-item sugerido"><div class="label"><i class="fa-solid fa-coins"></i> Por Apto (Sugerido)</div><div class="value" id="custoAptoSugerido">R$ 0,00</div></div>
         </div>
-        
         <div class="implantacao-box">
           <div>
             <div class="imp-label"><i class="fa-solid fa-rocket"></i> Taxa de Implantação (<span id="taxaPercentualLabel">32%</span> do valor sugerido)</div>
@@ -431,7 +454,6 @@
           </div>
           <div class="imp-value" id="taxaImplantacao">R$ 0</div>
         </div>
-
         <button class="btn btn-purple" onclick="gerarValorIntermediario()" style="width: 100%; margin-top: 15px; font-size: 13px; padding: 12px; opacity: 0.9;">
           <i class="fa-solid fa-scale-balanced"></i> Gerar Valor Intermediário (Média Arredondada)
         </button>
@@ -476,13 +498,14 @@
         <div class="sidebar-destaque"><div class="small-label"><i class="fa-solid fa-shield-halved"></i>VALOR MÍNIMO</div><div class="big-value" id="sMinimo">R$ 0</div></div>
         <div class="sidebar-item" style="margin-top: 10px;"><span class="s-label" style="color: var(--azul-claro);"><i class="fa-solid fa-coins"></i> Por Apto (Base)</span><span class="s-value" id="sCustoAptoBase" style="color: var(--azul-claro);">R$ 0,00</span></div>
         <div class="sidebar-sugerido"><div class="small-label"><i class="fa-solid fa-handshake"></i>SUGERIDO (+10%)</div><div class="big-value" id="sSugerido">R$ 0</div></div>
-        <div class="sidebar-item" style="margin-top: 10px;"><span class="s-label" style="color: var(--laranja);"><i class="fa-solid fa-coins"></i> Por Apto (Sugerido)</span><span class="s-value" id="sCustoAptoSugerido" style="color: var(--laranja);">R$ 0,00</span></div>
+        <div class="sidebar-item" id="sidebarAptoSugerido" style="margin-top: 5px;"><span class="s-label" style="color: var(--laranja);"><i class="fa-solid fa-coins"></i> Por Apto (Sugerido)</span><span class="s-value" id="sCustoAptoSugerido" style="color: var(--laranja);">R$ 0,00</span></div>
         <div class="sidebar-item" style="border-top: 1px solid rgba(255,255,255,0.2); margin-top: 15px; padding-top: 15px;"><span class="s-label"><i class="fa-solid fa-rocket"></i>Implantação</span><span class="s-value" id="sImplantacao">R$ 0</span></div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Modal de proposta -->
 <div class="modal" id="modalProposta">
   <div class="modal-content" id="conteudoProposta">
     <button class="close-modal" onclick="fecharModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -495,6 +518,7 @@
   </div>
 </div>
 
+<!-- Modal de seleção do WhatsApp -->
 <div class="modal" id="modalWhatsAppSelecao">
   <div class="modal-whatsapp-content">
     <button class="close-modal" onclick="fecharModalWhatsApp()"><i class="fa-solid fa-xmark"></i></button>
@@ -512,24 +536,7 @@
 </div>
 
 <script>
-  // ========================= FUNÇÃO AUXILIAR PARA TAXA DE IMPLANTAÇÃO =========================
-  function calcularTaxaImplantacao(valorSugerido) {
-    let percentual;
-    if (valorSugerido < 2500) {
-      percentual = 0.35; // 35% para valores sugeridos abaixo de 2500
-    } else {
-      percentual = 0.32; // 32% para valores sugeridos de 2500 ou mais
-    }
-    
-    let taxaCalculada = arredondarCimaCentena(valorSugerido * percentual);
-    const taxaImplantacao = Math.max(400, taxaCalculada);
-    
-    return {
-      taxa: taxaImplantacao,
-      percentual: Math.round(percentual * 100) // retorna o percentual usado (32 ou 35)
-    };
-  }
-
+  // ========================= FUNÇÕES AUXILIARES =========================
   function getValorTotalPorFaixa(qtdAptos) {
     if (qtdAptos <= 10) return 900;
     if (qtdAptos <= 15) return 1050;
@@ -568,6 +575,12 @@
   function formatarMoeda(valor) { if (!valor || valor === 0) return 'R$ 0'; return 'R$ ' + Math.ceil(valor).toLocaleString('pt-BR'); }
   function formatarMoedaDecimal(valor) { if (!valor || valor === 0) return 'R$ 0,00'; return 'R$ ' + valor.toFixed(2).replace('.', ','); }
 
+  function calcularTaxaImplantacao(valorSugerido) {
+    let percentual = (valorSugerido < 2500) ? 0.35 : 0.32;
+    let taxaCalculada = arredondarCimaCentena(valorSugerido * percentual);
+    return { taxa: Math.max(400, taxaCalculada), percentual: Math.round(percentual * 100) };
+  }
+
   function limparResultados() {
     const ids = ['valorOriginal', 'valorAptoExibicao', 'descontoValor', 'economia', 'valorMinimo', 'valorSugerido', 'custoAptoBase', 'custoAptoSugerido', 'taxaImplantacao', 'sMensal', 'sDesc', 'sEconomia', 'sMinimo', 'sCustoAptoBase', 'sSugerido', 'sCustoAptoSugerido', 'sImplantacao'];
     ids.forEach(id => {
@@ -584,8 +597,7 @@
     if (apts <= 0) { alert('⚠️ Preencha a quantidade de apartamentos primeiro.'); return; }
     let valorAtual = parseFloat(document.getElementById('valorPorApto').value) || 0;
     if (valorAtual === 0) { const valorTabela = getValorTotalPorFaixa(apts); valorAtual = valorTabela / apts; }
-    const valorArredondado = Math.ceil(valorAtual);
-    document.getElementById('valorPorApto').value = valorArredondado.toFixed(2);
+    document.getElementById('valorPorApto').value = Math.ceil(valorAtual).toFixed(2);
     calcular();
   }
 
@@ -605,9 +617,8 @@
     const valorMinimo = Math.ceil(valorOriginal - economia);
     const valorSugerido = arredondarCimaCentena(valorMinimo * 1.10);
     const custoAptoBase = Math.ceil(valorMinimo / apts);
-    const custoAptoSugerido = Math.ceil(valorSugerido / apts);
-    
-    // Nova função para cálculo da taxa de implantação
+    const custoAptoSugerido = valorSugerido / apts; // sem arredondamento
+
     const resultadoTaxa = calcularTaxaImplantacao(valorSugerido);
     const taxaImplantacao = resultadoTaxa.taxa;
     const percentualUsado = resultadoTaxa.percentual;
@@ -636,7 +647,7 @@
 
   function gerarValorIntermediario() {
     const apts = parseInt(document.getElementById('apartamentos').value) || 0;
-    if (apts <= 0) { alert('⚠️ Por favor, preencha a quantidade de apartamentos primeiro.'); return; }
+    if (apts <= 0) { alert('⚠️ Preencha a quantidade de apartamentos primeiro.'); return; }
     calcular();
     let valorPorAptoInput = document.getElementById('valorPorApto').value;
     let valorPorApto = parseFloat(valorPorAptoInput);
@@ -649,9 +660,35 @@
     const mediaAptoArredondada = Math.ceil(mediaTotalArredondada / apts);
     document.getElementById('valorIntermediarioTotal').textContent = formatarMoeda(mediaTotalArredondada);
     document.getElementById('valorIntermediarioApto').textContent = formatarMoedaDecimal(mediaAptoArredondada);
-    const area = document.getElementById('areaIntermediaria');
-    area.style.display = 'block';
-    area.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    document.getElementById('areaIntermediaria').style.display = 'block';
+    document.getElementById('areaIntermediaria').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function getLogoSVG() {
+    return `<svg class="logo-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:80px; height:80px; animation: pulseSeta 2s infinite ease-in-out;">
+        <polygon points="45,10 55,10 55,55 45,55" fill="#0F172A"/>
+        <polygon points="45,10 50,5 55,10" fill="#0F172A"/>
+        <polygon points="25,30 40,30 40,65 25,65" fill="#0F172A"/>
+        <polygon points="25,30 32,23 40,30" fill="#0F172A"/>
+        <rect x="28" y="35" width="4" height="3" fill="white"/>
+        <rect x="34" y="35" width="4" height="3" fill="white"/>
+        <rect x="28" y="42" width="4" height="3" fill="white"/>
+        <rect x="34" y="42" width="4" height="3" fill="white"/>
+        <rect x="28" y="49" width="4" height="3" fill="white"/>
+        <rect x="34" y="49" width="4" height="3" fill="white"/>
+        <polygon points="55,25 70,25 70,65 55,65" fill="#0F172A"/>
+        <polygon points="55,25 62,18 70,25" fill="#0F172A"/>
+        <rect x="58" y="30" width="4" height="3" fill="white"/>
+        <rect x="64" y="30" width="4" height="3" fill="white"/>
+        <rect x="58" y="37" width="4" height="3" fill="white"/>
+        <rect x="64" y="37" width="4" height="3" fill="white"/>
+        <rect x="58" y="44" width="4" height="3" fill="white"/>
+        <rect x="64" y="44" width="4" height="3" fill="white"/>
+        <rect x="58" y="51" width="4" height="3" fill="white"/>
+        <rect x="64" y="51" width="4" height="3" fill="white"/>
+        <path d="M 20,70 Q 20,85 50,85 Q 75,85 82,65" stroke="#3B82F6" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <polygon points="80,58 88,65 82,72" fill="#3B82F6"/>
+      </svg>`;
   }
 
   function fecharNegociacao() {
@@ -669,13 +706,10 @@
     const valorMinimo = Math.ceil(valorOriginal - (valorOriginal * desc / 100));
     const valorSugerido = arredondarCimaCentena(valorMinimo * 1.10);
     const custoAptoBase = Math.ceil(valorMinimo / parseInt(apts || 1));
-    const custoAptoSugerido = Math.ceil(valorSugerido / parseInt(apts || 1));
-    
-    // Nova função para taxa de implantação
+    const custoAptoSugerido = valorSugerido / parseInt(apts || 1);
     const resultadoTaxa = calcularTaxaImplantacao(valorSugerido);
     const taxaImplantacao = resultadoTaxa.taxa;
     const percentualUsado = resultadoTaxa.percentual;
-    
     const dataAtual = new Date().toLocaleDateString('pt-BR');
 
     const html = `
@@ -745,149 +779,93 @@
 
   function gerarPDF() {
     const apts = document.getElementById('apartamentos').value;
-    if (!apts || parseInt(apts) === 0) { alert('⚠️ Por favor, preencha a quantidade de apartamentos antes de gerar o PDF.'); return; }
+    if (!apts || parseInt(apts) === 0) { alert('⚠️ Preencha a quantidade de apartamentos.'); return; }
     if (!document.getElementById('modalProposta').classList.contains('active')) { fecharNegociacao(); }
     setTimeout(() => {
       try {
         const element = document.getElementById('conteudoProposta');
         if (typeof html2pdf === 'undefined') { window.print(); return; }
-        const opt = {
+        html2pdf().set({
           margin: [10, 10, 10, 10],
           filename: `Proposta_CondoUp_${new Date().getTime()}.pdf`,
           image: { type: 'jpeg', quality: 0.98 },
           html2canvas: { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff' },
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait', compress: true },
           pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-        };
-        html2pdf().set(opt).from(element).save();
-      } catch (error) { console.error('Erro ao gerar PDF:', error); window.print(); }
+        }).from(element).save();
+      } catch (error) { window.print(); }
     }, 800);
   }
 
-  function getLogoSVG() {
-    return `<svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="45,10 55,10 55,55 45,55" fill="#0F172A"/>
-        <polygon points="45,10 50,5 55,10" fill="#0F172A"/>
-        <polygon points="25,30 40,30 40,65 25,65" fill="#0F172A"/>
-        <polygon points="25,30 32,23 40,30" fill="#0F172A"/>
-        <rect x="28" y="35" width="4" height="3" fill="white"/>
-        <rect x="34" y="35" width="4" height="3" fill="white"/>
-        <rect x="28" y="42" width="4" height="3" fill="white"/>
-        <rect x="34" y="42" width="4" height="3" fill="white"/>
-        <rect x="28" y="49" width="4" height="3" fill="white"/>
-        <rect x="34" y="49" width="4" height="3" fill="white"/>
-        <polygon points="55,25 70,25 70,65 55,65" fill="#0F172A"/>
-        <polygon points="55,25 62,18 70,25" fill="#0F172A"/>
-        <rect x="58" y="30" width="4" height="3" fill="white"/>
-        <rect x="64" y="30" width="4" height="3" fill="white"/>
-        <rect x="58" y="37" width="4" height="3" fill="white"/>
-        <rect x="64" y="37" width="4" height="3" fill="white"/>
-        <rect x="58" y="44" width="4" height="3" fill="white"/>
-        <rect x="64" y="44" width="4" height="3" fill="white"/>
-        <rect x="58" y="51" width="4" height="3" fill="white"/>
-        <rect x="64" y="51" width="4" height="3" fill="white"/>
-        <path d="M 20,70 Q 20,85 50,85 Q 75,85 82,65" stroke="#3B82F6" stroke-width="4" fill="none" stroke-linecap="round"/>
-        <polygon points="80,58 88,65 82,72" fill="#3B82F6"/>
-      </svg>`;
-  }
-
   function abrirSelecaoWhatsApp() {
-    const apts = document.getElementById('apartamentos').value;
-    if (!apts || parseInt(apts) === 0) {
-      alert('⚠️ Por favor, preencha a quantidade de apartamentos primeiro.');
+    if (!document.getElementById('apartamentos').value || parseInt(document.getElementById('apartamentos').value) === 0) {
+      alert('⚠️ Preencha a quantidade de apartamentos primeiro.');
       return;
     }
     document.getElementById('modalWhatsAppSelecao').classList.add('active');
   }
 
-  function fecharModalWhatsApp() {
-    document.getElementById('modalWhatsAppSelecao').classList.remove('active');
-  }
+  function fecharModalWhatsApp() { document.getElementById('modalWhatsAppSelecao').classList.remove('active'); }
 
+  // ========================= ENVIO WHATSAPP CORRIGIDO =========================
   function enviarWhatsApp(tipo) {
     const condominio = document.getElementById('condominio').value || 'Condomínio';
     const apts = parseInt(document.getElementById('apartamentos').value);
-    
     calcular();
-    
+
     let valorPorAptoInput = document.getElementById('valorPorApto').value;
-    let valorPorApto = parseFloat(valorPorAptoInput);
-    if (isNaN(valorPorApto) || valorPorAptoInput.trim() === '') {
-      valorPorApto = getValorTotalPorFaixa(apts) / apts;
-    }
+    let valorPorApto = parseFloat(valorPorAptoInput) || (getValorTotalPorFaixa(apts) / apts);
     const desc = parseFloat(document.getElementById('desconto').value) || 0;
     const valorOriginal = Math.ceil(apts * valorPorApto);
     const valorMinimo = Math.ceil(valorOriginal - (valorOriginal * desc / 100));
     const valorSugerido = arredondarCimaCentena(valorMinimo * 1.10);
     const custoAptoBase = Math.ceil(valorMinimo / apts);
-    const custoAptoSugerido = Math.ceil(valorSugerido / apts);
-    
-    // Nova função para taxa de implantação
+    const custoAptoSugerido = valorSugerido / apts;
     const resultadoTaxa = calcularTaxaImplantacao(valorSugerido);
     const taxaImplantacao = resultadoTaxa.taxa;
-    const percentualUsado = resultadoTaxa.percentual;
-    
-    const mediaTotal = (valorMinimo + valorSugerido) / 2;
-    const mediaTotalArredondada = Math.ceil(mediaTotal);
-    const mediaAptoArredondada = Math.ceil(mediaTotalArredondada / apts);
+    // Não usaremos mais 'percentualUsado' na mensagem
 
-    let texto = '';
-    let valorEnviado, custoApto, taxa;
-
-    switch(tipo) {
-      case 'base':
-        valorEnviado = formatarMoeda(valorMinimo);
-        custoApto = formatarMoedaDecimal(custoAptoBase);
-        taxa = formatarMoeda(taxaImplantacao);
-        texto = `🏢 *CONDOUP - Proposta Comercial*%0A%0A` +
-          `*Condomínio:* ${condominio}%0A` +
-          `*Apartamentos:* ${apts}%0A%0A` +
-          `✅ *Valor Mensal (Base):* ${valorEnviado}%0A` +
-          `   Por apartamento: R$ ${custoApto.replace('R$ ', '')}%0A` +
-          `🚀 *Taxa de Implantação:* ${taxa} (${percentualUsado}% do valor, mín. R$ 400)%0A%0A` +
-          `📦 Incluso: Implantação, Treinamento, Suporte, Sistema Web %2B PWA%0A%0A` +
-          `_Proposta válida por 15 dias_`;
-        break;
-      case 'sugerido':
-        valorEnviado = formatarMoeda(valorSugerido);
-        custoApto = formatarMoedaDecimal(custoAptoSugerido);
-        taxa = formatarMoeda(taxaImplantacao);
-        texto = `🏢 *CONDOUP - Proposta Comercial*%0A%0A` +
-          `*Condomínio:* ${condominio}%0A` +
-          `*Apartamentos:* ${apts}%0A%0A` +
-          `💡 *Valor Sugerido (condição especial):* ${valorEnviado}%0A` +
-          `   Por apartamento: R$ ${custoApto.replace('R$ ', '')}%0A` +
-          `🚀 *Taxa de Implantação:* ${taxa} (${percentualUsado}% do valor, mín. R$ 400)%0A%0A` +
-          `📦 Incluso: Implantação, Treinamento, Suporte, Sistema Web %2B PWA%0A%0A` +
-          `_Proposta válida por 15 dias_`;
-        break;
-      case 'intermediario':
-        valorEnviado = formatarMoeda(mediaTotalArredondada);
-        custoApto = formatarMoedaDecimal(mediaAptoArredondada);
-        taxa = formatarMoeda(taxaImplantacao);
-        texto = `🏢 *CONDOUP - Proposta Comercial*%0A%0A` +
-          `*Condomínio:* ${condominio}%0A` +
-          `*Apartamentos:* ${apts}%0A%0A` +
-          `🤝 *Valor Intermediário (negociação):* ${valorEnviado}%0A` +
-          `   Por apartamento: R$ ${custoApto.replace('R$ ', '')}%0A` +
-          `🚀 *Taxa de Implantação:* ${taxa} (${percentualUsado}% do valor, mín. R$ 400)%0A%0A` +
-          `📦 Incluso: Implantação, Treinamento, Suporte, Sistema Web %2B PWA%0A%0A` +
-          `_Proposta válida por 15 dias_`;
-        break;
+    let mensagem = '';
+    if (tipo === 'base') {
+      mensagem = `🏢 *CONDOUP - Proposta Comercial*\n\n` +
+        `*Condomínio:* ${condominio}\n` +
+        `*Apartamentos:* ${apts}\n\n` +
+        `✅ *Valor Mensal (Base):* ${formatarMoeda(valorMinimo)}\n` +
+        `   Por apartamento: R$ ${custoAptoBase.toFixed(2).replace('.', ',')}\n` +
+        `🚀 *Taxa de Implantação:* ${formatarMoeda(taxaImplantacao)}\n\n` +
+        `📦 Incluso: Implantação, Treinamento, Suporte, Sistema Web + PWA\n\n` +
+        `_Proposta válida por 15 dias_`;
+    } else if (tipo === 'sugerido') {
+      mensagem = `🏢 *CONDOUP - Proposta Comercial*\n\n` +
+        `*Condomínio:* ${condominio}\n` +
+        `*Apartamentos:* ${apts}\n\n` +
+        `💡 *Valor Sugerido (condição especial):* ${formatarMoeda(valorSugerido)}\n` +
+        `   Por apartamento: R$ ${custoAptoSugerido.toFixed(2).replace('.', ',')}\n` +
+        `🚀 *Taxa de Implantação:* ${formatarMoeda(taxaImplantacao)}\n\n` +
+        `📦 Incluso: Implantação, Treinamento, Suporte, Sistema Web + PWA\n\n` +
+        `_Proposta válida por 15 dias_`;
+    } else if (tipo === 'intermediario') {
+      const mediaTotal = (valorMinimo + valorSugerido) / 2;
+      const mediaTotalArredondada = Math.ceil(mediaTotal);
+      const mediaAptoArredondada = Math.ceil(mediaTotalArredondada / apts);
+      mensagem = `🏢 *CONDOUP - Proposta Comercial*\n\n` +
+        `*Condomínio:* ${condominio}\n` +
+        `*Apartamentos:* ${apts}\n\n` +
+        `🤝 *Valor Intermediário (negociação):* ${formatarMoeda(mediaTotalArredondada)}\n` +
+        `   Por apartamento: R$ ${mediaAptoArredondada.toFixed(2).replace('.', ',')}\n` +
+        `🚀 *Taxa de Implantação:* ${formatarMoeda(taxaImplantacao)}\n\n` +
+        `📦 Incluso: Implantação, Treinamento, Suporte, Sistema Web + PWA\n\n` +
+        `_Proposta válida por 15 dias_`;
     }
 
+    const encodedText = encodeURIComponent(mensagem);
     fecharModalWhatsApp();
-    window.open(`https://wa.me/?text=${texto}`, '_blank');
-  }
+    window.open(`https://wa.me/?text=${encodedText}`, '_blank');
+}
 
   function limpar() {
-    if (confirm('Deseja realmente limpar todos os campos?')) {
-      document.getElementById('condominio').value = '';
-      document.getElementById('sindico').value = '';
-      document.getElementById('cidade').value = '';
-      document.getElementById('apartamentos').value = '';
-      document.getElementById('valorPorApto').value = '';
-      document.getElementById('desconto').value = '';
+    if (confirm('Deseja limpar todos os campos?')) {
+      ['condominio','sindico','cidade','apartamentos','valorPorApto','desconto'].forEach(id => document.getElementById(id).value = '');
       limparResultados();
     }
   }
@@ -895,19 +873,15 @@
   document.getElementById('apartamentos').addEventListener('input', function() {
     const apts = parseInt(this.value) || 0;
     if (apts > 0) {
-      const valorTotalTabela = getValorTotalPorFaixa(apts);
-      const valorPadrao = (valorTotalTabela / apts).toFixed(2);
-      document.getElementById('valorPorApto').value = valorPadrao;
+      document.getElementById('valorPorApto').value = (getValorTotalPorFaixa(apts) / apts).toFixed(2);
       calcular();
     } else {
       document.getElementById('valorPorApto').value = '';
       limparResultados();
     }
   });
-  
   document.getElementById('valorPorApto').addEventListener('input', calcular);
   document.getElementById('desconto').addEventListener('input', calcular);
 </script>
-
 </body>
 </html>
